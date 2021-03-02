@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Geta.EPi.Extensions</id>
+    <version>$version$</version>
+    <title>Geta.EPi.Extensions</title>
+    <authors>Geta</authors>
+    <owners>Geta</owners>
+    <projectUrl>https://github.com/Geta/EPi.Extensions</projectUrl>
+    <licenseUrl>https://raw.github.com/Geta/EPi.Extensions/master/LICENSE.txt</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Extension methods and helpers for EPiServer.</description>
+    <copyright>Copyright © 2017 Geta</copyright>
+    <iconUrl>http://cdn.geta.no/opensource/icons/geta-epi-icon.png</iconUrl>
+    <tags>EPiServer</tags>
+  </metadata>
+</package>
