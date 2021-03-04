@@ -1,15 +1,15 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using EPiServer.Shell.ObjectEditing;
+using System;
 
 namespace Geta.EPi.Extensions.Attributes
 {
     /// <summary>
-    ///     Attribute for decorating Episerver content type properties. If a property is decorated with 
-    ///     this attribute it will be possible to render a edit button in edit mode for a property that 
+    ///     Attribute for decorating Episerver content type properties. If a property is decorated with
+    ///     this attribute it will be possible to render a edit button in edit mode for a property that
     ///     isn't normally rendered in the view for the content type.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class EditButtonAttribute : Attribute, IMetadataAware
+    public class EditButtonAttribute : Attribute
     {
         /// <summary>
         ///     Creates instance with no icon css class, ShowInGroup=true and TriggerFullRefresh=true.
@@ -54,7 +54,7 @@ namespace Geta.EPi.Extensions.Attributes
         public string IconCssClass { get; set; }
 
         /// <summary>
-        ///     Set to true if edit button should be included in button group rendered with 
+        ///     Set to true if edit button should be included in button group rendered with
         ///     <see cref="ContentEditorExtensions">html helper</see> EditButtonsGroup.
         /// </summary>
         public bool ShowInGroup { get; set; }
@@ -74,7 +74,7 @@ namespace Geta.EPi.Extensions.Attributes
         /// When implemented in a class, provides metadata to the model metadata creation process.
         /// </summary>
         /// <param name="metadata">The model metadata.</param>
-        public void OnMetadataCreated(ModelMetadata metadata)
+        public void OnMetadataCreated(ExtendedMetadata metadata)
         {
             metadata.AdditionalValues[MetadataConstants.EditButton.IconCssClassPropertyName] = IconCssClass;
             metadata.AdditionalValues[MetadataConstants.EditButton.ShowInGroupPropertyName] = ShowInGroup;
