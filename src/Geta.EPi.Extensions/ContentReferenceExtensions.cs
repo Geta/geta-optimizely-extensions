@@ -146,7 +146,7 @@ namespace Geta.EPi.Extensions
             }
 
             var url = ignoreContextMode
-                ? urlResolver.GetUrl(contentReference, language, new VirtualPathArguments {ContextMode = ContextMode.Default})
+                ? urlResolver.GetUrl(contentReference, language, new VirtualPathArguments { ContextMode = ContextMode.Default })
                 : urlResolver.GetUrl(contentReference, language);
 
             if (!string.IsNullOrWhiteSpace(url) &&
@@ -162,12 +162,12 @@ namespace Geta.EPi.Extensions
                         contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
                     }
 
-                    if(contentLoader.TryGet<IContent>(targetContentGuid, out var destinationContent) &&
+                    if (contentLoader.TryGet<IContent>(targetContentGuid, out var destinationContent) &&
                        destinationContent.ContentLink != contentReference)
                     {
                         // in case this is shortcut from one IContent instance to another IContent instance, will try to get target content friendly url instead
                         url = ignoreContextMode
-                            ? urlResolver.GetUrl(destinationContent.ContentLink, language, new VirtualPathArguments {ContextMode = ContextMode.Default})
+                            ? urlResolver.GetUrl(destinationContent.ContentLink, language, new VirtualPathArguments { ContextMode = ContextMode.Default })
                             : urlResolver.GetUrl(destinationContent.ContentLink, language);
                     }
                 }
