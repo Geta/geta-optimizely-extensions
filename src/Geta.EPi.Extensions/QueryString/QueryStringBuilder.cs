@@ -1,15 +1,19 @@
-﻿using System.Web;
+﻿using System.IO;
+using System.Text.Encodings.Web;
+using System.Web;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
+using Geta.EPi.Extensions.Helpers;
+using Microsoft.AspNetCore.Html;
 
 namespace Geta.EPi.Extensions.QueryString
 {
     /// <summary>
     ///     Helper class for creating and modifying URL's QueryString.
     /// </summary>
-    public class QueryStringBuilder : IHtmlString
+    public class QueryStringBuilder : IHtmlContent
     {
         protected readonly UrlBuilder UrlBuilder;
         protected readonly UrlResolver EPiUrlResolver;
@@ -128,7 +132,7 @@ namespace Geta.EPi.Extensions.QueryString
         /// <returns>Instance of modified QueryStringBuilder.</returns>
         public QueryStringBuilder AddSegment(string segment)
         {
-            UrlBuilder.Path = VirtualPathUtility.AppendTrailingSlash(UrlBuilder.Path) + HttpUtility.UrlPathEncode(segment.TrimStart('/'));
+            UrlBuilder.Path = UrlBuilder.Path.AppendTrailingSlash() + HttpUtility.UrlPathEncode(segment.TrimStart('/'));
             return this;
         }
 
@@ -171,8 +175,13 @@ namespace Geta.EPi.Extensions.QueryString
             return UrlBuilder.ToString();
         }
 
+        public void WriteTo(TextWriter writer, HtmlEncoder encoder)
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
-        ///     Returns string representation of URL with query string. This is implementation of IHtmlString.
+        ///     Returns string representation of URL with query string. This is implementation of IHtmlContent.
         /// </summary>
         /// <returns>String representation of URL with query string.</returns>
         public string ToHtmlString()
