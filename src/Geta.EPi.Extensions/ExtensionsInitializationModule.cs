@@ -2,6 +2,7 @@
 using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
+using Microsoft.AspNetCore.Http;
 
 namespace Geta.EPi.Extensions
 {
@@ -20,7 +21,7 @@ namespace Geta.EPi.Extensions
         /// <param name="context"></param>
         public void Initialize(InitializationEngine context)
         {
-            context.Locate.TemplateResolver().TemplateResolved += OnTemplateResolved;
+            context.Locate.Advanced.GetInstance<ITemplateResolverEvents>().TemplateResolved += OnTemplateResolved;
         }
 
         /// <summary>
@@ -29,7 +30,7 @@ namespace Geta.EPi.Extensions
         /// <param name="context"></param>
         public void Uninitialize(InitializationEngine context)
         {
-            ServiceLocator.Current.GetInstance<TemplateResolver>().TemplateResolved -= OnTemplateResolved;
+            context.Locate.Advanced.GetInstance<ITemplateResolverEvents>().TemplateResolved -= OnTemplateResolved;
         }
 
         private void OnTemplateResolved(object sender, TemplateResolverEventArgs args)
@@ -38,7 +39,8 @@ namespace Geta.EPi.Extensions
 
             if (args.SelectedTemplate.IsBlockPreviewTemplate())
             {
-                args.WebContext.Items["IsBlockPreviewTemplate"] = true;
+                var httpContext = ServiceLocator.Current.GetInstance<IHttpContextAccessor>().HttpContext;
+                httpContext.Items["IsBlockPreviewTemplate"] = true;
             }
         }
     }
