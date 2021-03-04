@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Geta.EPi.Extensions
 {
@@ -12,7 +12,7 @@ namespace Geta.EPi.Extensions
         /// </summary>
         /// <param name="requestBase"></param>
         /// <returns></returns>
-        public static string GetUserIp(this HttpRequestBase requestBase)
+        public static string GetUserIp(this HttpRequest requestBase)
         {
             if (requestBase == null)
             {
@@ -20,11 +20,11 @@ namespace Geta.EPi.Extensions
             }
 
             //First get HTTP_X_FORWARDED_FOR ip if client is behind a proxy
-            var userIp = requestBase.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            var userIp = requestBase.HttpContext.GetServerVariable("HTTP_X_FORWARDED_FOR");
 
             if (string.IsNullOrEmpty(userIp))
             {
-                return requestBase.ServerVariables["REMOTE_ADDR"];
+                return requestBase.HttpContext.GetServerVariable("REMOTE_ADDR");
             }
 
             var ipArray = userIp.Split(',');
