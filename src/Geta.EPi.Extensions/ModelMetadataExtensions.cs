@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System;
 using System.Linq.Expressions;
-using System.Web.Mvc;
 
 namespace Foundation.Core.Extensions
 {
@@ -8,7 +9,10 @@ namespace Foundation.Core.Extensions
     {
         public static ModelMetadata GetModelMetadata<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expr)
         {
-            return ModelMetadata.FromLambdaExpression(expr, html.ViewData);
+            var expressionProvider = html.ViewContext.HttpContext.RequestServices
+                .GetService(typeof(ModelExpressionProvider)) as ModelExpressionProvider;
+
+            return expressionProvider?.CreateModelExpression(html.ViewData, expr).Metadata;
         }
 
         public static bool TryGetAdditionalValue<T>(this ModelMetadata modelMetaData, string key, out T value)
@@ -25,7 +29,7 @@ namespace Foundation.Core.Extensions
                 return false;
             }
 
-            value = (T) modelMetaData.AdditionalValues[key];
+            value = (T)modelMetaData.AdditionalValues[key];
             return true;
         }
 
