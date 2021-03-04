@@ -1,8 +1,8 @@
-﻿using EPiFakeMaker;
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.ServiceLocation;
 using Geta.EPi.Extensions.SingletonPage;
 using Geta.EPi.Extensions.Tests.Base;
+using Geta.EPi.Extensions.Tests.EPiFakeMaker;
 using Xunit;
 
 namespace Geta.EPi.Extensions.Tests.SingletonPage
