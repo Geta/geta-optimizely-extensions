@@ -55,11 +55,11 @@ Write-Host "Copy docker-compose file and replace parameters"
 Copy-Item ..\docker-compose.yml -Destination .
 (Get-Content -path docker-compose.yml).replace('${sa_password}', $env:sa_password).replace('${database_name}', $env:database_name).replace('${web_tag}', $env:web_tag).replace('${sql_tag}', $env:sql_tag).replace('${site_port}', $env:site_port) | Set-Content docker-compose.yml
 
-$folderName = "$env:database_name$env:sql_tag"
 $zipFileName = "$folderName.zip"
 $confirmation = Read-Host "Do you want to upload $zipFileName file to VM (y/n)"
 if ($confirmation -eq 'y') {
   Write-Host "Export docker images to files"
+  $folderName = "$env:database_name$env:sql_tag"
 
   if (!($skipSql -eq 'y')) {
     docker save -o $dbFileName alloy/db:$env:sql_tag

@@ -12,11 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
-using AlloyMvcTemplates;
-using EPiServer.Authorization;
-using Geta.NotFoundHandler.Episerver;
-using Geta.NotFoundHandler.Infrastructure.Configuration;
-using Geta.NotFoundHandler.Infrastructure.Initialization;
 
 namespace EPiServer.Templates.Alloy.Mvc
 {
@@ -35,16 +30,6 @@ namespace EPiServer.Templates.Alloy.Mvc
         {
             var dbPath = Path.Combine(_webHostingEnvironment.ContentRootPath, "App_Data\\Alloy.mdf");
             var connectionstring = _configuration.GetConnectionString("EPiServerDB") ?? $"Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename={dbPath};Initial Catalog=alloy_mvc_netcore;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=True";
-
-            services.AddNotFoundHandler(o =>
-            {
-                o.UseSqlServer(connectionstring);
-                o.AddProvider<NullNotFoundHandlerProvider>();
-            }, policy =>
-            {
-                policy.RequireRole(Roles.CmsAdmins);
-            });
-            services.AddEpiserverNotFoundHandler();
 
             services.Configure<DataAccessOptions>(o =>
             {
@@ -70,17 +55,12 @@ namespace EPiServer.Templates.Alloy.Mvc
             {
                 uiOptions.UIShowGlobalizationUserInterface = true;
             });
-
-            services.AddEmbeddedLocalization<Startup>();
         }
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseStatusCodePagesWithReExecute("/error/{0}");
-            app.UseNotFoundHandler();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

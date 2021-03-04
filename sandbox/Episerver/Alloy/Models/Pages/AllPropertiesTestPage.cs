@@ -197,10 +197,8 @@ namespace AlloyTemplates.Models.Pages
 
     public class Person
     {
-        [DisplayName("/admin/secedit/firstname")]
         public string FirstName { get; set; }
 
-        [DisplayName("Last name")]
         public string LastName { get; set; }
 
         public int Age { get; set; }

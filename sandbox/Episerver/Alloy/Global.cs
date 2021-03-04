@@ -80,9 +80,9 @@ namespace AlloyTemplates
         }
 
         /// <summary>
-        /// Virtual path to folder with static graphics, such as "/gfx/"
+        /// Virtual path to folder with static graphics, such as "~/gfx/"
         /// </summary>
-        public const string StaticGraphicsFolderPath = "/gfx/";
+        public const string StaticGraphicsFolderPath = "~/gfx/";
     }
 }
 

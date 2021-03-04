@@ -68,7 +68,7 @@ namespace Geta.EPi.Extensions
             if (page == null
                 || PageReference.IsNullOrEmpty(page.ParentLink)
                 || DataFactory.Instance.IsWastebasket(page.PageLink))
-                // TODO: Might be obsolete in EPi 7 - should verify
+            // TODO: Might be obsolete in EPi 7 - should verify
             {
                 return null;
             }
