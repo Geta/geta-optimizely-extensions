@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using Castle.Core.Internal;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
+using EPiServer.Web;
 using EPiServer.Web.Mvc.Html;
+using Geta.EPi.Extensions.Helpers;
 using Geta.EPi.Extensions.QueryString;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace Geta.EPi.Extensions
 {
@@ -25,10 +30,10 @@ namespace Geta.EPi.Extensions
         /// <returns>
         ///     Returns Html string with URL if URL found otherwise Html string with <paramref name="defaultValue" />
         /// </returns>
-        public static IHtmlString PageLinkUrl(this UrlHelper urlHelper, PageReference pageLink, string defaultValue)
+        public static IHtmlContent PageLinkUrl(this UrlHelper urlHelper, PageReference pageLink, string defaultValue)
         {
-            var url = urlHelper.PageLinkUrl(pageLink) as MvcHtmlString;
-            return MvcHtmlString.IsNullOrEmpty(url) ? new HtmlString(defaultValue) : url;
+            var url = urlHelper.PageLinkUrl(pageLink) as HtmlString;
+            return url == null || url.Value.IsNullOrEmpty() ? new HtmlString(defaultValue) : url;
         }
 
         /// <summary>
@@ -39,11 +44,11 @@ namespace Geta.EPi.Extensions
         /// <param name="urlHelper">UrlHelper instance.</param>
         /// <param name="pageLink">Page reference for which to return URL.</param>
         /// <returns>Returns Html string with URL.</returns>
-        public static IHtmlString PageLinkUrl(this UrlHelper urlHelper, PageReference pageLink)
+        public static IHtmlContent PageLinkUrl(this UrlHelper urlHelper, PageReference pageLink)
         {
             if (ContentReference.IsNullOrEmpty(pageLink))
             {
-                return MvcHtmlString.Empty;
+                return HtmlString.Empty;
             }
 
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
@@ -59,7 +64,7 @@ namespace Geta.EPi.Extensions
         /// <param name="urlHelper">UrlHelper instance.</param>
         /// <param name="page">Page for which to find URL.</param>
         /// <returns>Returns Html string with URL.</returns>
-        public static IHtmlString PageUrl(this UrlHelper urlHelper, PageData page)
+        public static IHtmlContent PageUrl(this UrlHelper urlHelper, PageData page)
         {
             switch (page.LinkType)
             {
@@ -76,10 +81,10 @@ namespace Geta.EPi.Extensions
                     break;
 
                 case PageShortcutType.External:
-                    return new MvcHtmlString(page.LinkURL);
+                    return new HtmlString(page.LinkURL);
             }
 
-            return MvcHtmlString.Empty;
+            return HtmlString.Empty;
         }
 
         /// <summary>
@@ -148,7 +153,7 @@ namespace Geta.EPi.Extensions
             }
 
             var urlBuilder = new UrlBuilder(contentUrl);
-            urlBuilder.Path = VirtualPathUtility.AppendTrailingSlash(urlBuilder.Path) + actionName;
+            urlBuilder.Path = urlBuilder.Path.AppendTrailingSlash() + actionName;
             return urlBuilder.ToString();
         }
 
