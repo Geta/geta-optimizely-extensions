@@ -1,16 +1,13 @@
-﻿using System;
-using System.Web;
-using System.Web.Mvc;
-using Castle.Core.Internal;
+﻿using Castle.Core.Internal;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
-using EPiServer.Web;
 using EPiServer.Web.Mvc.Html;
 using Geta.EPi.Extensions.Helpers;
 using Geta.EPi.Extensions.QueryString;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Routing;
+using System;
 
 namespace Geta.EPi.Extensions
 {

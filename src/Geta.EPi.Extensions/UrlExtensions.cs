@@ -1,13 +1,11 @@
-﻿using System;
-using System.Web;
-using System.Web.Mvc;
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using System;
 
 namespace Geta.EPi.Extensions
 {
