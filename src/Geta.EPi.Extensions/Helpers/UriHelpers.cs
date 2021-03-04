@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Web;
 using EPiServer;
+using EPiServer.ServiceLocation;
 using EPiServer.Web;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Geta.EPi.Extensions.Helpers
 {
@@ -16,23 +18,23 @@ namespace Geta.EPi.Extensions.Helpers
         /// <returns>Base site URI</returns>
         public static Uri GetBaseUri()
         {
-            var context = HttpContext.Current != null ? new HttpContextWrapper(HttpContext.Current) : null;
-            return GetBaseUri(context, SiteDefinition.Current);
+            var httpContext = ServiceLocator.Current.GetInstance<IHttpContextAccessor>().HttpContext;
+            return httpContext != null ? GetBaseUri(httpContext, SiteDefinition.Current) : null;
         }
 
         /// <summary>
         /// Returns base URI for the site.
         /// </summary>
         /// <returns>Base site URI</returns>
-        public static Uri GetBaseUri(HttpContextBase context, SiteDefinition siteDefinition)
+        public static Uri GetBaseUri(HttpContext context, SiteDefinition siteDefinition)
         {
             var siteUri = context != null
-                ? context.Request.Url
-                : siteDefinition.SiteUrl;
+                ? context.Request.GetDisplayUrl()
+                : siteDefinition.SiteUrl.ToString();
 
             var scheme = context != null && !string.IsNullOrEmpty(context.Request.Headers["X-Forwarded-Proto"])
-                ? context.Request.Headers["X-Forwarded-Proto"].Split(',')[0]
-                : siteUri?.Scheme;
+                ? context.Request.Headers["X-Forwarded-Proto"].ToString().Split(',')[0]
+                : context != null ? context.Request.Scheme : siteDefinition.SiteUrl.Scheme;
 
             var urlBuilder = new UrlBuilder(siteUri)
             {
