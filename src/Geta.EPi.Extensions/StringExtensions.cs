@@ -31,7 +31,7 @@ namespace Geta.EPi.Extensions
         public static int? TryParseInt32(this string input)
         {
             int outValue;
-            return Int32.TryParse(input, out outValue) ? (int?) outValue : null;
+            return Int32.TryParse(input, out outValue) ? (int?)outValue : null;
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Geta.EPi.Extensions
         public static long? TryParseInt64(this string input)
         {
             long outValue;
-            return long.TryParse(input, out outValue) ? (long?) outValue : null;
+            return long.TryParse(input, out outValue) ? (long?)outValue : null;
         }
 
         /// <summary>

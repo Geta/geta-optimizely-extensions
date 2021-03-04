@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using EPiServer.HtmlParsing;
+﻿using EPiServer.HtmlParsing;
 using EPiServer.Web.Mvc.Html;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Geta.EPi.Extensions.Helpers
 {
@@ -129,7 +128,7 @@ namespace Geta.EPi.Extensions.Helpers
 
         private static bool IsTableFragment(HtmlFragment htmlFragment)
         {
-            var tableTags = new[] {"table", "tr", "td", "thead", "tfoot", "tbody"};
+            var tableTags = new[] { "table", "tr", "td", "thead", "tfoot", "tbody" };
             return tableTags.Contains(htmlFragment.Name);
         }
 

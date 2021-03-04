@@ -7,7 +7,7 @@ namespace Geta.EPi.Extensions
     public static class ContentRepositoryExtensions
     {
         /// <summary>
-        /// Gets the first child of of the content item represented by the provided reference. 
+        /// Gets the first child of of the content item represented by the provided reference.
         /// </summary>
         /// <param name="contentRepository"></param>
         /// <param name="contentReference"></param>
