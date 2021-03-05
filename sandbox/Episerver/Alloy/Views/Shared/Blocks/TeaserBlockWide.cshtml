@@ -5,7 +5,7 @@
     @*Link the teaser block only if a link has been set and not displayed in preview*@
     @using(Html.BeginConditionalLink(
         !ContentReference.IsNullOrEmpty(Model.Link) && !(Html.ViewContext.IsBlockPreview()),
-        Url.PageLinkUrl(Model.Link),
+        Url.PageLinkUrl(Model.Link).ToString,
         Model.Heading))
     {
         <div class="media">

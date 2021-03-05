@@ -7,8 +7,8 @@ using EPiServer;
 using EPiServer.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Html;
-using AlloyTemplates.Helpers;
 using EPiServer.Cms.AspNetCore.Mvc;
+using Geta.EPi.Extensions;
 
 namespace AlloyTemplates.Controllers
 {
@@ -32,7 +32,7 @@ namespace AlloyTemplates.Controllers
             }
 
             var linkUrl = GetLinkUrl(currentBlock);
-            
+
             var model = new ContactBlockModel
                 {
                     Heading = currentBlock.Heading,
@@ -65,7 +65,7 @@ namespace AlloyTemplates.Controllers
                 var linkMap = _permanentLinkMapper.Find(new UrlBuilder(linkUrl));
                 if (linkMap != null && !ContentReference.IsNullOrEmpty(linkMap.ContentReference))
                 {
-                    return new HtmlString(Url.PageLinkUrl(linkMap.ContentReference));
+                    return Url.PageLinkUrl((PageReference)linkMap.ContentReference);
                 }
 
                 return new HtmlString(contactBlock.LinkUrl.ToString());
