@@ -4,14 +4,16 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web.WebPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace Geta.EPi.Extensions.MenuList
 {
@@ -96,7 +98,7 @@ namespace Geta.EPi.Extensions.MenuList
             var writer = new StringWriter(buffer);
             foreach (var menuItem in menuItems)
             {
-                itemTemplate(menuItem).WriteTo(writer);
+                itemTemplate(menuItem).WriteTo(writer, HtmlEncoder.Default);
             }
 
             return new HtmlString(buffer.ToString());
@@ -127,9 +129,13 @@ namespace Geta.EPi.Extensions.MenuList
             return contentPath.Contains(content.ContentLink);
         }
 
-        private static Func<MenuItem<T>, HelperResult> GetDefaultItemTemplate<T>(HtmlHelper helper) where T : IContent
+        private static Func<MenuItem<T>, HelperResult> GetDefaultItemTemplate<T>(IHtmlHelper helper) where T : IContent
         {
-            return x => new HelperResult(writer => writer.Write(helper.ContentLink(x.Content)));
+            return x => new HelperResult(writer =>
+            {
+                helper.ContentLink(x.Content).WriteTo(writer, HtmlEncoder.Default);
+                return Task.CompletedTask;
+            });
         }
     }
 }
