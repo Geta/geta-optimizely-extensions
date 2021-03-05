@@ -1,18 +1,16 @@
+using AlloyMvcTemplates.Infrastructure;
 using AlloyTemplates.Models;
+using EPiServer.Authorization;
 using EPiServer.Core;
+using EPiServer.DataAbstraction;
+using EPiServer.Framework.Security;
+using EPiServer.Security;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell.Security;
-using EPiServer.Web.Routing;
-using System.Collections.Generic;
-using System.Linq;
-using EPiServer.Security;
-using EPiServer.DataAbstraction;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using AlloyMvcTemplates.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using EPiServer.Authorization;
-using EPiServer.Framework.Security;
 
 namespace AlloyTemplates.Controllers
 {

@@ -1,6 +1,5 @@
 using AlloyTemplates.Models.Media;
 using AlloyTemplates.Models.ViewModels;
-using EPiServer.Cms.AspNetCore.Mvc;
 using EPiServer.Web.Mvc;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Mvc;

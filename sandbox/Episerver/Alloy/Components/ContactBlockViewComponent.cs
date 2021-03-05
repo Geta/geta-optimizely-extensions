@@ -1,14 +1,13 @@
-using EPiServer.Core;
 using AlloyTemplates.Models.Blocks;
 using AlloyTemplates.Models.Pages;
 using AlloyTemplates.Models.ViewModels;
-using EPiServer.Web;
 using EPiServer;
+using EPiServer.Core;
+using EPiServer.Web;
 using EPiServer.Web.Mvc;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Html;
-using EPiServer.Cms.AspNetCore.Mvc;
 using Geta.EPi.Extensions;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AlloyTemplates.Controllers
 {

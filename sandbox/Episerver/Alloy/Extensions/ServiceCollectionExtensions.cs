@@ -2,15 +2,10 @@ using AlloyMvcTemplates.Business.Rendering;
 using AlloyTemplates;
 using AlloyTemplates.Business;
 using AlloyTemplates.Business.Channels;
-using EPiServer.Authorization;
-using EPiServer.Cms.Shell.UI.Approvals.Notifications;
-using EPiServer.DependencyInjection;
 using EPiServer.Web;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace AlloyMvcTemplates.Extensions
 {

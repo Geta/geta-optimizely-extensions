@@ -1,18 +1,13 @@
-using System;
-using System.IO;
+using AlloyTemplates.Models.ViewModels;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
-using EPiServer.Security;
-
-using AlloyTemplates.Models.ViewModels;
 using EPiServer.Web.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Threading.Tasks;
-using EPiServer.Web;
-using AlloyTemplates.Helpers;
 using Geta.EPi.Extensions;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace AlloyTemplates.Business.Rendering
 {

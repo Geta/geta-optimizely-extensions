@@ -1,6 +1,5 @@
-﻿using System;
+﻿using AlloyTemplates.Models.Pages;
 using EPiServer.Core;
-using AlloyTemplates.Models.Pages;
 
 namespace AlloyTemplates.Models.ViewModels
 {
