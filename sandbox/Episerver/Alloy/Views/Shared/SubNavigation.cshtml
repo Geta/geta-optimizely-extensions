@@ -1,7 +1,9 @@
-﻿@model IPageViewModel<SitePageData>
+﻿@using Geta.EPi.Extensions.MenuList
+@using HelperResult = Microsoft.AspNetCore.Mvc.Razor.HelperResult
+@model IPageViewModel<SitePageData>
 
 @{
-    HelperResult SubLevelItemTemplate(HtmlHelpers.MenuItem subLevelItem)
+    HelperResult SubLevelItemTemplate(MenuItem subLevelItem)
     {
         <li class="@(subLevelItem.Selected ? "active" : null)">
             @Html.PageLink(subLevelItem.Page)
@@ -11,7 +13,7 @@
 }
 
 @{
-    HelperResult ItemTemplate(HtmlHelpers.MenuItem firstLevelItem)
+    HelperResult ItemTemplate(MenuItem firstLevelItem)
     {
         <div class="accordion-heading">
             <a href="@Url.ContentUrl(firstLevelItem.Page.PageLink)" class="@(firstLevelItem.Page.ContentLink.CompareToIgnoreWorkID(Model.CurrentPage.ContentLink) ? "accordion-toggle active" : "accordion-toggle")" data-parent="#alloyDrop">
