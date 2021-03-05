@@ -75,7 +75,7 @@ namespace Geta.EPi.Extensions.MenuList
         /// </remarks>
         public static IHtmlContent MenuList<T>(this HtmlHelper helper, ContentReference rootLink, Func<MenuItem<T>, HelperResult> itemTemplate = null, bool includeRoot = false, bool requireVisibleInMenu = true, bool requireTemplate = true) where T : IContent
         {
-            itemTemplate = itemTemplate ?? GetDefaultItemTemplate<T>(helper);
+            itemTemplate ??= GetDefaultItemTemplate<T>(helper);
             var currentContentLink = helper.ViewContext.HttpContext.GetContentLink();
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
 
