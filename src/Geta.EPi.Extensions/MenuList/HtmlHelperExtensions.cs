@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.WebPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Geta.EPi.Extensions.MenuList
 {
@@ -37,7 +38,7 @@ namespace Geta.EPi.Extensions.MenuList
         /// <remarks>
         ///     Filter by access rights and publication status.
         /// </remarks>
-        public static IHtmlContent MenuList(this HtmlHelper helper, ContentReference rootLink, Func<MenuItem, HelperResult> itemTemplate = null,
+        public static IHtmlContent MenuList(this IHtmlHelper helper, ContentReference rootLink, Func<MenuItem, HelperResult> itemTemplate = null,
             bool includeRoot = false, bool requireVisibleInMenu = true, bool requirePageTemplate = true)
         {
             var template = new Func<MenuItem<PageData>, HelperResult>(x =>
@@ -73,9 +74,9 @@ namespace Geta.EPi.Extensions.MenuList
         /// <remarks>
         ///     Filter by access rights and publication status.
         /// </remarks>
-        public static IHtmlContent MenuList<T>(this HtmlHelper helper, ContentReference rootLink, Func<MenuItem<T>, HelperResult> itemTemplate = null, bool includeRoot = false, bool requireVisibleInMenu = true, bool requireTemplate = true) where T : IContent
+        public static IHtmlContent MenuList<T>(this IHtmlHelper helper, ContentReference rootLink, Func<MenuItem<T>, HelperResult> itemTemplate = null, bool includeRoot = false, bool requireVisibleInMenu = true, bool requireTemplate = true) where T : IContent
         {
-            itemTemplate ??= GetDefaultItemTemplate<T>(helper);
+            itemTemplate ??= GetDefaultItemTemplate<T>(helper as HtmlHelper);
             var currentContentLink = helper.ViewContext.HttpContext.GetContentLink();
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
 
