@@ -1,6 +1,7 @@
 ﻿@using EPiServer.Editor
 @using EPiServer.Core
 @using EPiServer.Web
+@using Geta.EPi.Extensions
 @model IPageViewModel<SitePageData>
 <div class="row">
     <div id="header">
@@ -33,7 +34,7 @@
                                       query string values not in the form we can't use that in edit mode.*@
                                     
                                     @{
-                                        using (Html.BeginForm(null, null, Html.ViewContext.IsInEditMode() ? FormMethod.Post : FormMethod.Get, new { @action = Model.Layout.SearchActionUrl }))
+                                        using (Html.BeginForm(null, null, Html.ViewContext.IsBlockInEditMode() ? FormMethod.Post : FormMethod.Get, new { @action = Model.Layout.SearchActionUrl }))
                                         {
                                             <input type="text" class="search-query" name="q" id="SearchKeywords" placeholder="@Html.Translate("/mainnavigation/search")"/>
                                             <input type="submit" class="searchButton" id="SearchButton" value=""/>

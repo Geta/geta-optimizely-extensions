@@ -2,6 +2,7 @@ using System;
 using AlloyTemplates.Controllers;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
+using Geta.EPi.Extensions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +22,7 @@ namespace AlloyTemplates.Helpers
         /// <returns></returns>
         public static bool IsPreviewMode(this ViewContext viewContext)
         {
-            return viewContext.IsInEditMode() && (viewContext.ActionDescriptor as ControllerActionDescriptor)?.ControllerName == "Preview";
+            return viewContext.IsBlockInEditMode() && (viewContext.ActionDescriptor as ControllerActionDescriptor)?.ControllerName == "Preview";
         }
 
         /// <summary>

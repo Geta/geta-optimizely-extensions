@@ -1,11 +1,12 @@
 @using EPiServer.Core
+@using Geta.EPi.Extensions
 
 @model TeaserBlock
 
 <div class="border">
     @*Link the teaser block only if a link has been set and not displayed in preview*@
     @using (Html.BeginConditionalLink
-                            (!ContentReference.IsNullOrEmpty(Model.Link) && !(Html.ViewContext.IsPreviewMode()),
+                            (!ContentReference.IsNullOrEmpty(Model.Link) && !(Html.ViewContext.IsBlockPreview()),
                             Url.PageLinkUrl(Model.Link),
                             Model.Heading))
     {

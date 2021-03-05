@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using EPiServer.Web;
 using AlloyTemplates.Helpers;
+using Geta.EPi.Extensions;
 
 namespace AlloyTemplates.Business.Rendering
 {
@@ -61,7 +62,7 @@ namespace AlloyTemplates.Business.Rendering
 
         private void HandlerError(IHtmlHelper helper, IContentData contentData, Exception renderingException)
         {
-            if (helper.ViewContext.IsInEditMode())
+            if (helper.ViewContext.IsBlockInEditMode())
             {
                 var errorModel = new ContentRenderingErrorModel(contentData, renderingException);
                 helper.RenderPartialAsync("TemplateError", errorModel).GetAwaiter().GetResult();
