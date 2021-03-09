@@ -24,7 +24,7 @@ namespace Geta.EPi.Extensions
     public static class ContentEditorExtensions
     {
         /// <summary>
-        ///
+        ///     Render help hint for current <see cref="IContentData"/> instance resolved from lambda expression.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="expr"></param>
@@ -39,7 +39,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///
+        ///     Render help hint for current <see cref="IContentData"/> instance.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="helpText"></param>
@@ -52,7 +52,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///
+        ///     Render help hint for <see cref="IContentData"/> instance.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="content"></param>
@@ -75,7 +75,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///
+        ///     Render help hint for HelpTextPropertyName resolved from lambda expression.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="expr"></param>
@@ -111,7 +111,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///
+        ///     Render editor help summary for current <see cref="IContentData"/> instance.
         /// </summary>
         /// <param name="helper"></param>
         /// <typeparam name="TModel"></typeparam>
@@ -122,7 +122,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///
+        ///     Render editor help summary for current <see cref="IContentData"/> instance resolved from lambda expression.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="expr"></param>
@@ -140,7 +140,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///
+        ///     Render editor help summary for <see cref="IContentData"/> instance.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="content"></param>
@@ -206,7 +206,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        ///
+        ///     Render edit button for property resolved from lambda expression./> instance.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="expr"></param>
