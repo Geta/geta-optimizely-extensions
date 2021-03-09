@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <PackageId>Geta.Optimizely.Extensions</PackageId>
+    <PackageId>Geta.EPi.Extensions</PackageId>
     <Title>Extensions and helpers library for EPiServer CMS</Title>
     <PackageVersion>3.0.0</PackageVersion>
     <Authors>Geta Digital</Authors>
@@ -12,10 +12,10 @@
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl>https://cdn.geta.no/opensource/icons/Geta-logo-3.png</PackageIconUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>EPi.Extensions is library with useful extension methods and helpers for EPiServer.</Description>
+    <Description>Geta.EPi.Extensions is library with useful extension methods and helpers for EPiServer.</Description>
     <PackageReleaseNotes>https://github.com/Geta/geta-optimizely-extensions/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <PackageTags>Extensions Episerver Optimizely Geta</PackageTags>
-    <copyright>Copyright © 2021 Geta</copyright>
+    <copyright>Copyright © 2021 Geta Digital</copyright>
     <RepositoryUrl>https://github.com/Geta/geta-optimizely-extensions</RepositoryUrl>
   </PropertyGroup>
 
