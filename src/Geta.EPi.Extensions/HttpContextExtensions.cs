@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EPiServer.Web;
+using Geta.EPi.Extensions.Helpers;
+using Microsoft.AspNetCore.Http;
+using System;
 
 namespace Geta.EPi.Extensions
 {
@@ -7,6 +10,15 @@ namespace Geta.EPi.Extensions
     /// </summary>
     public static class HttpContextExtensions
     {
+        /// <summary>
+        /// Returns base URI for the site.
+        /// </summary>
+        /// <returns>Base site URI</returns>
+        public static Uri GetBaseUri(this HttpContext httpContext)
+        {
+            return httpContext != null ? UriHelpers.GetBaseUri(httpContext, SiteDefinition.Current) : null;
+        }
+
         /// <summary>
         ///     Checks HttpContextBase.Items for a key named IsBlockPreviewTemplate and if it's set to true.
         ///     This key is set through the TemplateResolver.TemplateResolved event in the <see cref="ExtensionsInitializationModule">initialization module</see>

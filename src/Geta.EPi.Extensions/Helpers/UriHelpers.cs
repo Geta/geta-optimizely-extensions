@@ -1,9 +1,8 @@
-﻿using System;
-using EPiServer;
-using EPiServer.ServiceLocation;
+﻿using EPiServer;
 using EPiServer.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using System;
 
 namespace Geta.EPi.Extensions.Helpers
 {
@@ -12,16 +11,6 @@ namespace Geta.EPi.Extensions.Helpers
     /// </summary>
     public class UriHelpers
     {
-        /// <summary>
-        /// Returns base URI for the site.
-        /// </summary>
-        /// <returns>Base site URI</returns>
-        public static Uri GetBaseUri()
-        {
-            var httpContext = ServiceLocator.Current.GetInstance<IHttpContextAccessor>().HttpContext;
-            return httpContext != null ? GetBaseUri(httpContext, SiteDefinition.Current) : null;
-        }
-
         /// <summary>
         /// Returns base URI for the site.
         /// </summary>
