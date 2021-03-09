@@ -1,7 +1,9 @@
 ﻿using EPiServer;
 using EPiServer.Core;
+using EPiServer.ServiceLocation;
 using EPiServer.SpecializedProperties;
 using EPiServer.Web.Routing;
+using Microsoft.AspNetCore.Http;
 
 namespace Geta.EPi.Extensions
 {
@@ -41,8 +43,9 @@ namespace Geta.EPi.Extensions
         /// </summary>
         /// <param name="linkItem">Source LinkItem for which to return external URL.</param>
         /// <param name="includeHost">Mark if include host name in the url, unless it is external url then it still will contain absolute url</param>
+        /// <param name="context">HttpContext, include if includeHost is true.</param>
         /// <returns>Returns friendly URL if item is EPiServer content, otherwise returns the original Href property value.</returns>
-        public static string GetFriendlyUrl(this LinkItem linkItem, bool includeHost = false)
+        public static string GetFriendlyUrl(this LinkItem linkItem, bool includeHost = false, HttpContext context = null)
         {
             if (string.IsNullOrWhiteSpace(linkItem.Href))
             {
@@ -59,7 +62,17 @@ namespace Geta.EPi.Extensions
                 ? url.ToString()
                 : UrlResolver.Current.GetUrl(url.ToString()) ?? url.ToString();
 
-            return includeHost && !string.IsNullOrWhiteSpace(friendlyUrl) ? friendlyUrl.AddHost() : friendlyUrl;
+            if (includeHost && !string.IsNullOrWhiteSpace(friendlyUrl))
+            {
+                if (context == null)
+                {
+                    context = ServiceLocator.Current.GetInstance<IHttpContextAccessor>().HttpContext;
+                }
+
+                return friendlyUrl.AddHost(context);
+            }
+
+            return friendlyUrl;
         }
     }
 }
