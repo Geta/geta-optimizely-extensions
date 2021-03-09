@@ -1,13 +1,14 @@
-﻿using System.IO;
-using System.Text.Encodings.Web;
-using System.Web;
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using Geta.EPi.Extensions.Helpers;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
+using System;
+using System.IO;
+using System.Text.Encodings.Web;
+using System.Web;
 
 namespace Geta.EPi.Extensions.QueryString
 {
@@ -182,9 +183,20 @@ namespace Geta.EPi.Extensions.QueryString
             return UrlBuilder.ToString();
         }
 
+        /// <inheritdoc />
         public void WriteTo(TextWriter writer, HtmlEncoder encoder)
         {
-            throw new System.NotImplementedException();
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
+            if (encoder == null)
+            {
+                throw new ArgumentNullException(nameof(encoder));
+            }
+
+            encoder.Encode(writer, UrlBuilder.ToString());
         }
 
         /// <summary>
