@@ -5,7 +5,7 @@ namespace Geta.EPi.Extensions
     /// <summary>
     /// Extensions for <see cref="HttpContext"/>
     /// </summary>
-    public static class HttpContextBaseExtensions
+    public static class HttpContextExtensions
     {
         /// <summary>
         ///     Checks HttpContextBase.Items for a key named IsBlockPreviewTemplate and if it's set to true.
