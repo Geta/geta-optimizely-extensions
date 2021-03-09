@@ -40,7 +40,10 @@ namespace Geta.EPi.Extensions
             if (args.SelectedTemplate.IsBlockPreviewTemplate())
             {
                 var httpContext = ServiceLocator.Current.GetInstance<IHttpContextAccessor>().HttpContext;
-                httpContext.Items["IsBlockPreviewTemplate"] = true;
+                if (httpContext != null)
+                {
+                    httpContext.Items["IsBlockPreviewTemplate"] = true;
+                }
             }
         }
     }
