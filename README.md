@@ -1,6 +1,6 @@
 # Extensions and helpers library for EPiServer CMS
 
-![](http://tc.geta.no/app/rest/builds/buildType:(id:TeamFrederik_ExtensionsDebug)/statusIcon)
+![](http://tc.geta.no/app/rest/builds/buildType:(id:GetaPackages_OptimizelyExtensions)/statusIcon)
 [![Platform](https://img.shields.io/badge/Platform-.NET%205-blue.svg?style=flat)](https://docs.microsoft.com/en-us/dotnet/core/dotnet-five)
 [![Platform](https://img.shields.io/badge/Episerver-%2012-orange.svg?style=flat)](http://world.episerver.com/cms/)
 
