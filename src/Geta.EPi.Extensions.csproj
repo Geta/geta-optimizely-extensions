@@ -17,6 +17,7 @@
     <PackageTags>Extensions Episerver Optimizely Geta</PackageTags>
     <copyright>Copyright © 2021 Geta Digital</copyright>
     <RepositoryUrl>https://github.com/Geta/geta-optimizely-extensions</RepositoryUrl>
+    <Version>3.0.0-prerelease</Version>
   </PropertyGroup>
 
   <ItemGroup>
