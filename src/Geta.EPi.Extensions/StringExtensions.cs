@@ -1,7 +1,7 @@
-﻿using System;
-using EPiServer.Core.Html;
-using Geta.EPi.Extensions.Helpers;
+﻿using EPiServer.Core.Html;
 using Geta.Net.Extensions;
+using System;
+using Microsoft.AspNetCore.Http;
 
 namespace Geta.EPi.Extensions
 {
@@ -31,7 +31,7 @@ namespace Geta.EPi.Extensions
         public static int? TryParseInt32(this string input)
         {
             int outValue;
-            return Int32.TryParse(input, out outValue) ? (int?) outValue : null;
+            return Int32.TryParse(input, out outValue) ? (int?)outValue : null;
         }
 
         /// <summary>
@@ -42,17 +42,18 @@ namespace Geta.EPi.Extensions
         public static long? TryParseInt64(this string input)
         {
             long outValue;
-            return long.TryParse(input, out outValue) ? (long?) outValue : null;
+            return long.TryParse(input, out outValue) ? (long?)outValue : null;
         }
 
         /// <summary>
         /// Adds scheme and host to a relative URL.
         /// </summary>
         /// <param name="input">URL</param>
+        /// <param name="context">HttpContext.</param>
         /// <returns>Returns URL with scheme and host.</returns>
-        public static string GetExternalUrl(this string input)
+        public static string GetExternalUrl(this string input, HttpContext context)
         {
-            return AddHost(input);
+            return AddHost(input, context);
         }
 
         /// <summary>
@@ -74,10 +75,11 @@ namespace Geta.EPi.Extensions
         /// Adds scheme and host to a relative URL. Uses UriHelpers.GetBaseUri() to retrieve base URL for the scheme and host.
         /// </summary>
         /// <param name="url">URL</param>
+        /// <param name="context">HttpContext</param>
         /// <returns>Returns URL with scheme and host.</returns>
-        public static string AddHost(this string url)
+        public static string AddHost(this string url, HttpContext context)
         {
-            return url.AddHost(UriHelpers.GetBaseUri);
+            return url.AddHost(context.GetBaseUri);
         }
 
         /// <summary>

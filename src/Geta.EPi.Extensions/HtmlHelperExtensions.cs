@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Routing;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Web.Mvc;
-using System.Web.Mvc.Html;
-using System.Web.Routing;
+using System.Linq;
 
 namespace Geta.EPi.Extensions
 {
@@ -22,20 +25,20 @@ namespace Geta.EPi.Extensions
         /// <param name="routeValues"></param>
         /// <param name="htmlAttributes"></param>
         /// <returns></returns>
-        public static MvcHtmlString AuthorizedActionLink(
-            this HtmlHelper helper, 
-            string linkText, 
-            string actionName, 
-            string controllerName, 
-            object routeValues, 
+        public static IHtmlContent AuthorizedActionLink(
+            this HtmlHelper helper,
+            string linkText,
+            string actionName,
+            string controllerName,
+            object routeValues,
             object htmlAttributes)
         {
-            if (HasActionPermission(helper, actionName, controllerName))
+            if (HasActionPermission(helper))
             {
                 return helper.ActionLink(linkText, actionName, controllerName, routeValues, htmlAttributes);
             }
 
-            return MvcHtmlString.Empty;
+            return HtmlString.Empty;
         }
 
         /// <summary>
@@ -46,18 +49,18 @@ namespace Geta.EPi.Extensions
         /// <param name="actionName"></param>
         /// <param name="controllerName"></param>
         /// <returns></returns>
-        public static MvcHtmlString AuthorizedActionLink(
-            this HtmlHelper helper, 
-            string linkText, 
-            string actionName, 
+        public static IHtmlContent AuthorizedActionLink(
+            this HtmlHelper helper,
+            string linkText,
+            string actionName,
             string controllerName)
         {
-            if (HasActionPermission(helper, actionName, controllerName))
+            if (HasActionPermission(helper))
             {
                 return helper.ActionLink(linkText, actionName, controllerName);
             }
 
-            return MvcHtmlString.Empty;
+            return HtmlString.Empty;
         }
 
         /// <summary>
@@ -70,79 +73,45 @@ namespace Geta.EPi.Extensions
         /// <param name="routeValues"></param>
         /// <param name="htmlAttributes"></param>
         /// <returns></returns>
-        public static MvcHtmlString AuthorizedActionLink(
-            this HtmlHelper helper, 
-            string linkText, 
-            string actionName, 
-            string controllerName, 
-            RouteValueDictionary routeValues, 
+        public static IHtmlContent AuthorizedActionLink(
+            this HtmlHelper helper,
+            string linkText,
+            string actionName,
+            string controllerName,
+            RouteValueDictionary routeValues,
             IDictionary<string, object> htmlAttributes)
         {
-            if (HasActionPermission(helper, actionName, controllerName))
+            if (HasActionPermission(helper))
             {
                 return helper.ActionLink(linkText, actionName, controllerName, routeValues, htmlAttributes);
             }
 
-            return MvcHtmlString.Empty;
+            return HtmlString.Empty;
         }
 
         /// <summary>
         /// Checks if a user has permission to the controller's action.
         /// </summary>
         /// <param name="htmlHelper"></param>
-        /// <param name="actionName"></param>
-        /// <param name="controllerName"></param>
         /// <returns></returns>
-        public static bool HasActionPermission(this HtmlHelper htmlHelper, string actionName, string controllerName)
+        public static bool HasActionPermission(this HtmlHelper htmlHelper)
         {
-            var controllerToLinkTo = string.IsNullOrEmpty(controllerName)
-                ? htmlHelper.ViewContext.Controller
-                : GetControllerByName(htmlHelper, controllerName);
-
-            var controllerContext = new ControllerContext(htmlHelper.ViewContext.RequestContext, controllerToLinkTo);
-
-            var controllerDescriptor = new ReflectedControllerDescriptor(controllerToLinkTo.GetType());
-            var actionDescriptor = controllerDescriptor.FindAction(controllerContext, actionName);
-
-            return ActionIsAuthorized(controllerContext, actionDescriptor);
+            return ActionIsAuthorized(htmlHelper.ViewContext.ActionDescriptor, htmlHelper.ViewContext);
         }
 
-        private static bool ActionIsAuthorized(ControllerContext controllerContext, ActionDescriptor actionDescriptor)
+        private static bool ActionIsAuthorized(ActionDescriptor actionDescriptor, ActionContext actionContext)
         {
             if (actionDescriptor == null)
                 return false;
 
-            var authContext = new AuthorizationContext(controllerContext, actionDescriptor);
-            foreach (var authFilter in FilterProviders.Providers.GetFilters(authContext, actionDescriptor))
+            var filters = actionDescriptor.FilterDescriptors.Select(x => x.Filter).ToList();
+            var authContextHandler = new AuthorizationFilterContext(actionContext, filters);
+            if (authContextHandler.Result != null)
             {
-                if (authFilter.Instance is AuthorizeAttribute)
-                {
-                    ((IAuthorizationFilter)authFilter.Instance).OnAuthorization(authContext);
-
-                    if (authContext.Result != null)
-                        return false;
-                }
+                return false;
             }
 
             return true;
-        }
-
-        private static ControllerBase GetControllerByName(HtmlHelper helper, string controllerName)
-        {
-            var factory = ControllerBuilder.Current.GetControllerFactory();
-            var controller = factory.CreateController(helper.ViewContext.RequestContext, controllerName);
-
-            if (controller == null)
-            {
-                throw new InvalidOperationException(
-                    string.Format(
-                        CultureInfo.CurrentUICulture,
-                        "Controller factory {0} controller {1} returned null",
-                        factory.GetType(),
-                        controllerName));
-            }
-
-            return (ControllerBase)controller;
         }
     }
 }

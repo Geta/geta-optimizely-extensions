@@ -64,7 +64,7 @@ namespace Geta.EPi.Extensions.SingletonPage
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((CacheKey) obj);
+            return Equals((CacheKey)obj);
         }
 
         /// <summary>Serves as a hash function for a particular type. </summary>
@@ -74,7 +74,7 @@ namespace Geta.EPi.Extensions.SingletonPage
         {
             unchecked
             {
-                return ((Type?.GetHashCode() ?? 0)*397) 
+                return ((Type?.GetHashCode() ?? 0) * 397)
                     ^ (ParentLink?.GetHashCode() ?? 0);
             }
         }

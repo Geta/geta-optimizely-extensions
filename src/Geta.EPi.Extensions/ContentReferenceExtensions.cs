@@ -6,6 +6,7 @@ using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
+using Microsoft.AspNetCore.Http;
 
 namespace Geta.EPi.Extensions
 {
@@ -104,6 +105,7 @@ namespace Geta.EPi.Extensions
         /// <param name="contentReference">Content reference for which to create friendly url.</param>
         /// <param name="includeHost">Mark if include host name in the url, unless it is external url then it still will contain absolute url.</param>
         /// <param name="ignoreContextMode"></param>
+        /// <param name="context">HttpContext, include if includeHost is true.</param>
         /// <param name="urlResolver">Optional UrlResolver instance.</param>
         /// <param name="contentLoader">Optional ContentLoader instance.</param>
         /// <returns>String representation of URL for provided content reference.</returns>
@@ -111,10 +113,11 @@ namespace Geta.EPi.Extensions
             this ContentReference contentReference,
             bool includeHost = false,
             bool ignoreContextMode = false,
+            HttpContext context = null,
             UrlResolver urlResolver = null,
             IContentLoader contentLoader = null)
         {
-            return GetFriendlyUrl(contentReference, null, includeHost, ignoreContextMode, urlResolver, contentLoader);
+            return GetFriendlyUrl(contentReference, null, includeHost, ignoreContextMode, context, urlResolver, contentLoader);
         }
 
         /// <summary>
@@ -124,6 +127,7 @@ namespace Geta.EPi.Extensions
         /// <param name="language">Language of content.</param>
         /// <param name="includeHost">Mark if include host name in the url, unless it is external url then it still will contain absolute url.</param>
         /// <param name="ignoreContextMode"></param>
+        /// <param name="context">HttpContext, include if includeHost is true.</param>
         /// <param name="urlResolver">Optional UrlResolver instance.</param>
         /// <param name="contentLoader">Optional ContentLoader instance.</param>
         /// <returns>String representation of URL for provided content reference.</returns>
@@ -132,6 +136,7 @@ namespace Geta.EPi.Extensions
             string language,
             bool includeHost = false,
             bool ignoreContextMode = false,
+            HttpContext context = null,
             UrlResolver urlResolver = null,
             IContentLoader contentLoader = null)
         {
@@ -146,7 +151,7 @@ namespace Geta.EPi.Extensions
             }
 
             var url = ignoreContextMode
-                ? urlResolver.GetUrl(contentReference, language, new VirtualPathArguments {ContextMode = ContextMode.Default})
+                ? urlResolver.GetUrl(contentReference, language, new VirtualPathArguments { ContextMode = ContextMode.Default })
                 : urlResolver.GetUrl(contentReference, language);
 
             if (!string.IsNullOrWhiteSpace(url) &&
@@ -162,12 +167,12 @@ namespace Geta.EPi.Extensions
                         contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
                     }
 
-                    if(contentLoader.TryGet<IContent>(targetContentGuid, out var destinationContent) &&
+                    if (contentLoader.TryGet<IContent>(targetContentGuid, out var destinationContent) &&
                        destinationContent.ContentLink != contentReference)
                     {
                         // in case this is shortcut from one IContent instance to another IContent instance, will try to get target content friendly url instead
                         url = ignoreContextMode
-                            ? urlResolver.GetUrl(destinationContent.ContentLink, language, new VirtualPathArguments {ContextMode = ContextMode.Default})
+                            ? urlResolver.GetUrl(destinationContent.ContentLink, language, new VirtualPathArguments { ContextMode = ContextMode.Default })
                             : urlResolver.GetUrl(destinationContent.ContentLink, language);
                     }
                 }
@@ -175,7 +180,11 @@ namespace Geta.EPi.Extensions
 
             if (includeHost)
             {
-                return url.AddHost();
+                if (context == null)
+                {
+                    context = ServiceLocator.Current.GetInstance<IHttpContextAccessor>().HttpContext;
+                }
+                return url.AddHost(context);
             }
 
             var content = Get<IContent>(contentReference);

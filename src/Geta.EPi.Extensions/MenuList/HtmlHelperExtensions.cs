@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.WebPages;
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace Geta.EPi.Extensions.MenuList
 {
@@ -37,7 +40,7 @@ namespace Geta.EPi.Extensions.MenuList
         /// <remarks>
         ///     Filter by access rights and publication status.
         /// </remarks>
-        public static IHtmlString MenuList(this HtmlHelper helper, ContentReference rootLink, Func<MenuItem, HelperResult> itemTemplate = null,
+        public static IHtmlContent MenuList(this IHtmlHelper helper, ContentReference rootLink, Func<MenuItem, HelperResult> itemTemplate = null,
             bool includeRoot = false, bool requireVisibleInMenu = true, bool requirePageTemplate = true)
         {
             var template = new Func<MenuItem<PageData>, HelperResult>(x =>
@@ -73,10 +76,10 @@ namespace Geta.EPi.Extensions.MenuList
         /// <remarks>
         ///     Filter by access rights and publication status.
         /// </remarks>
-        public static IHtmlString MenuList<T>(this HtmlHelper helper, ContentReference rootLink, Func<MenuItem<T>, HelperResult> itemTemplate = null, bool includeRoot = false, bool requireVisibleInMenu = true, bool requireTemplate = true) where T : IContent
+        public static IHtmlContent MenuList<T>(this IHtmlHelper helper, ContentReference rootLink, Func<MenuItem<T>, HelperResult> itemTemplate = null, bool includeRoot = false, bool requireVisibleInMenu = true, bool requireTemplate = true) where T : IContent
         {
-            itemTemplate = itemTemplate ?? GetDefaultItemTemplate<T>(helper);
-            var currentContentLink = helper.ViewContext.RequestContext.GetContentLink();
+            itemTemplate ??= GetDefaultItemTemplate<T>(helper as HtmlHelper);
+            var currentContentLink = helper.ViewContext.HttpContext.GetContentLink();
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
 
             Func<IEnumerable<T>, IEnumerable<T>> filter = contents => contents.FilterForDisplay(requireTemplate, requireVisibleInMenu);
@@ -95,10 +98,10 @@ namespace Geta.EPi.Extensions.MenuList
             var writer = new StringWriter(buffer);
             foreach (var menuItem in menuItems)
             {
-                itemTemplate(menuItem).WriteTo(writer);
+                itemTemplate(menuItem).WriteTo(writer, HtmlEncoder.Default);
             }
 
-            return new MvcHtmlString(buffer.ToString());
+            return new HtmlString(buffer.ToString());
         }
 
         private static MenuItem<T> CreateMenuItem<T>(T content, ContentReference currentContentLink, ContentReference rootLink, IContentLoader contentLoader, Func<IEnumerable<T>, IEnumerable<T>> filter) where T : IContent
@@ -126,9 +129,13 @@ namespace Geta.EPi.Extensions.MenuList
             return contentPath.Contains(content.ContentLink);
         }
 
-        private static Func<MenuItem<T>, HelperResult> GetDefaultItemTemplate<T>(HtmlHelper helper) where T : IContent
+        private static Func<MenuItem<T>, HelperResult> GetDefaultItemTemplate<T>(IHtmlHelper helper) where T : IContent
         {
-            return x => new HelperResult(writer => writer.Write(helper.ContentLink(x.Content)));
+            return x => new HelperResult(writer =>
+            {
+                helper.ContentLink(x.Content).WriteTo(writer, HtmlEncoder.Default);
+                return Task.CompletedTask;
+            });
         }
     }
 }

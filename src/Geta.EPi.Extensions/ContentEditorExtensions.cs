@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Web;
-using System.Web.Mvc;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.Framework.Localization;
+using EPiServer.Web;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
 using Foundation.Core.Extensions;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Geta.EPi.Extensions
 {
@@ -20,42 +24,42 @@ namespace Geta.EPi.Extensions
     public static class ContentEditorExtensions
     {
         /// <summary>
-        /// 
+        ///     Render help hint for current <see cref="IContentData"/> instance resolved from lambda expression.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="expr"></param>
         /// <param name="helpText"></param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlString EditorHelp<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr, string helpText)
+        public static IHtmlContent EditorHelp<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr, string helpText)
         {
-            ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
-            var content = modelMetadata.Model as IContentData;
+            var modelMetadata = CreateContentModelMetadata(helper, expr);
+            var content = modelMetadata as IContentData;
             return EditorHelp(helper, content, helpText);
         }
 
         /// <summary>
-        /// 
+        ///     Render help hint for current <see cref="IContentData"/> instance.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="helpText"></param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlString EditorHelp<TModel>(this HtmlHelper<TModel> helper, string helpText) where TModel : IContentData
+        public static IHtmlContent EditorHelp<TModel>(this HtmlHelper<TModel> helper, string helpText) where TModel : IContentData
         {
             var content = helper.ViewData.Model as IContentData;
             return EditorHelp(helper, content, helpText);
         }
 
         /// <summary>
-        /// 
+        ///     Render help hint for <see cref="IContentData"/> instance.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="content"></param>
         /// <param name="helpText"></param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlString EditorHelp<TModel>(this HtmlHelper<TModel> helper, IContentData content, string helpText)
+        public static IHtmlContent EditorHelp<TModel>(this HtmlHelper<TModel> helper, IContentData content, string helpText)
         {
             if (!PageIsInEditMode(helper))
             {
@@ -67,39 +71,39 @@ namespace Geta.EPi.Extensions
                 return null;
             }
 
-            return MvcHtmlString.Create(GetHintsTag(helpText).ToString());
+            return new HtmlString(GetHintsTag(helpText).ToString());
         }
 
         /// <summary>
-        /// 
+        ///     Render help hint for HelpTextPropertyName resolved from lambda expression.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="expr"></param>
         /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TProperty"></typeparam>
         /// <returns></returns>
-        public static IHtmlString EditorHelpFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr)
+        public static IHtmlContent EditorHelpFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr)
         {
             if (PageIsInEditMode(helper) == false)
             {
                 return null;
             }
 
-            var modelMetaData = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
+            var modelMetadata = CreatePropertyModelMetadata(helper, expr);
 
-            if (IsBlock(modelMetaData.ContainerType) && IsBlockPreviewTemplate(helper) == false)
+            if (IsBlock(modelMetadata.ContainerType) && IsBlockPreviewTemplate(helper) == false)
             {
                 return null;
             }
 
-            if (modelMetaData.AdditionalValues.ContainsKey(MetadataConstants.EditorHelp.HelpTextPropertyName))
+            if (modelMetadata.AdditionalValues.ContainsKey(MetadataConstants.EditorHelp.HelpTextPropertyName))
             {
-                var hint = modelMetaData.AdditionalValues[MetadataConstants.EditorHelp.HelpTextPropertyName] as string;
+                var hint = modelMetadata.AdditionalValues[MetadataConstants.EditorHelp.HelpTextPropertyName] as string;
 
                 if (string.IsNullOrWhiteSpace(hint) == false)
                 {
                     var tag = GetHintsTag(hint);
-                    return new MvcHtmlString(tag.ToString());
+                    return new HtmlString(tag.ToString());
                 }
             }
 
@@ -107,42 +111,42 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// 
+        ///     Render editor help summary for current <see cref="IContentData"/> instance.
         /// </summary>
         /// <param name="helper"></param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlString EditorHelpSummary<TModel>(this HtmlHelper<TModel> helper) where TModel : IContentData
+        public static IHtmlContent EditorHelpSummary<TModel>(this HtmlHelper<TModel> helper) where TModel : IContentData
         {
             return EditorHelpSummary(helper, helper.ViewData.Model);
         }
 
         /// <summary>
-        /// 
+        ///     Render editor help summary for current <see cref="IContentData"/> instance resolved from lambda expression.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="expr"></param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlString EditorHelpSummary<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr)
+        public static IHtmlContent EditorHelpSummary<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr)
         {
             if (PageIsInEditMode(helper) == false)
             {
                 return null;
             }
 
-            ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
-            return EditorHelpSummary(helper, modelMetadata.Model as IContentData);
+            var modelMetadata = CreateContentModelMetadata(helper, expr);
+            return EditorHelpSummary(helper, modelMetadata as IContentData);
         }
 
         /// <summary>
-        /// 
+        ///     Render editor help summary for <see cref="IContentData"/> instance.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="content"></param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlString EditorHelpSummary<TModel>(this HtmlHelper<TModel> helper, IContentData content)
+        public static IHtmlContent EditorHelpSummary<TModel>(this HtmlHelper<TModel> helper, IContentData content)
         {
             if (PageIsInEditMode(helper) == false)
             {
@@ -156,7 +160,7 @@ namespace Geta.EPi.Extensions
                 return null;
             }
 
-            IEnumerable<ModelMetadata> propertiesMeta = ModelMetadataProviders.Current.GetMetadataForType(() => content, contentType).Properties;
+            IEnumerable<ModelMetadata> propertiesMeta = new EmptyModelMetadataProvider().GetMetadataForType(contentType).Properties;
             IList<string> hints = new List<string>();
 
             foreach (var propertyMetadata in propertiesMeta)
@@ -195,43 +199,43 @@ namespace Geta.EPi.Extensions
             if (hints.Count > 0)
             {
                 var tag = GetHintsTag(hints);
-                return new MvcHtmlString(tag.ToString());
+                return new HtmlString(tag.ToString());
             }
 
             return null;
         }
 
         /// <summary>
-        /// 
+        ///     Render edit button for property resolved from lambda expression./> instance.
         /// </summary>
         /// <param name="helper"></param>
         /// <param name="expr"></param>
         /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TProperty"></typeparam>
         /// <returns></returns>
-        public static IHtmlString EditButtonFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr)
+        public static IHtmlContent EditButtonFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr)
         {
             if (PageIsInEditMode(helper) == false)
             {
                 return null;
             }
 
-            var modelMetaData = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
+            var modelMetadata = CreatePropertyModelMetadata(helper, expr);
 
-            if (IsBlockAndNotInPreview(helper, modelMetaData.ContainerType))
+            if (IsBlockAndNotInPreview(helper, modelMetadata.ContainerType))
             {
                 return null;
             }
 
             string iconCssClass = null;
 
-            if (modelMetaData.AdditionalValues.ContainsKey(MetadataConstants.EditButton.IconCssClassPropertyName))
+            if (modelMetadata.AdditionalValues.ContainsKey(MetadataConstants.EditButton.IconCssClassPropertyName))
             {
-                iconCssClass = modelMetaData.AdditionalValues[MetadataConstants.EditButton.IconCssClassPropertyName] as string;
+                iconCssClass = modelMetadata.AdditionalValues[MetadataConstants.EditButton.IconCssClassPropertyName] as string;
             }
 
-            string tag = GetEditButtonTag(helper, expr, modelMetaData.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? modelMetaData.DisplayName ?? modelMetaData.PropertyName, iconCssClass);
-            return new MvcHtmlString(tag);
+            string tag = GetEditButtonTag(helper, expr, modelMetadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? modelMetadata.DisplayName ?? modelMetadata.PropertyName, iconCssClass);
+            return new HtmlString(tag);
         }
 
         /// <summary>
@@ -241,7 +245,7 @@ namespace Geta.EPi.Extensions
         /// <param name="includeBuiltInProperties">If true, also renders edit button for built-in Category property.</param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlString EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, bool includeBuiltInProperties = false) where TModel : IContentData
+        public static IHtmlContent EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, bool includeBuiltInProperties = false) where TModel : IContentData
         {
             return EditButtonsGroup(helper, helper.ViewData.Model, includeBuiltInProperties);
         }
@@ -254,15 +258,15 @@ namespace Geta.EPi.Extensions
         /// <param name="includeBuiltInProperties">If true, also renders edit button for built-in Category property.</param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlString EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr, bool includeBuiltInProperties = false)
+        public static IHtmlContent EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr, bool includeBuiltInProperties = false)
         {
             if (PageIsInEditMode(helper) == false)
             {
                 return null;
             }
 
-            ModelMetadata modelMetadata = ModelMetadata.FromLambdaExpression(expr, helper.ViewData);
-            return EditButtonsGroup(helper, modelMetadata.Model as IContentData, includeBuiltInProperties);
+            var modelMetadata = CreateContentModelMetadata(helper, expr);
+            return EditButtonsGroup(helper, modelMetadata as IContentData, includeBuiltInProperties);
         }
 
         /// <summary>
@@ -273,7 +277,7 @@ namespace Geta.EPi.Extensions
         /// <param name="includeBuiltInProperties">If true, also renders edit button for built-in Category property.</param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlString EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, IContentData content, bool includeBuiltInProperties = false)
+        public static IHtmlContent EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, IContentData content, bool includeBuiltInProperties = false)
         {
             if (PageIsInEditMode(helper) == false)
             {
@@ -287,7 +291,7 @@ namespace Geta.EPi.Extensions
                 return null;
             }
 
-            IEnumerable<ModelMetadata> propertiesMeta = ModelMetadataProviders.Current.GetMetadataForType(() => content, contentType).Properties;
+            IEnumerable<ModelMetadata> propertiesMeta = new EmptyModelMetadataProvider().GetMetadataForType(contentType).Properties;
             IList<string> iconCssDivs = new List<string>();
             IList<string> fullRefreshPropertyNames = new List<string>();
 
@@ -380,10 +384,10 @@ namespace Geta.EPi.Extensions
 
                 foreach (var iconCssDiv in iconCssDivs)
                 {
-                    container.InnerHtml += iconCssDiv;
+                    container.InnerHtml.Append(iconCssDiv);
                 }
 
-                return MvcHtmlString.Create(container.ToString() + helper.FullRefreshPropertiesMetaData(fullRefreshPropertyNames.ToArray()));
+                return new HtmlString(container.ToString() + helper.FullRefreshPropertiesMetaData(fullRefreshPropertyNames.ToArray()));
             }
 
             return null;
@@ -454,15 +458,13 @@ namespace Geta.EPi.Extensions
 
             foreach (var hint in hints)
             {
-                var li = new TagBuilder("li")
-                {
-                    InnerHtml = hint
-                };
+                var li = new TagBuilder("li");
+                li.InnerHtml.Append(hint);
 
-                ul.InnerHtml += li.ToString();
+                ul.InnerHtml.Append(li.ToString());
             }
 
-            tag.InnerHtml = ul.ToString();
+            tag.InnerHtml.Append(ul.ToString());
             return tag;
         }
 
@@ -486,9 +488,30 @@ namespace Geta.EPi.Extensions
             return IsBlock(contentType) && IsBlockPreviewTemplate(helper) == false;
         }
 
-        private static bool PageIsInEditMode<TModel>(HtmlHelper<TModel> helper)
+        private static bool PageIsInEditMode<TModel>(IHtmlHelper<TModel> helper)
         {
-            return helper.ViewContext.RequestContext.IsInEditMode();
+            var mode = helper.ViewContext.HttpContext.RequestServices.GetRequiredService<IContextModeResolver>().CurrentMode;
+            return mode == ContextMode.Edit;
+        }
+
+        private static ModelMetadata CreateContentModelMetadata<TModel>(HtmlHelper<TModel> helper,
+            Expression<Func<TModel, IContentData>> expr)
+        {
+            var expressionProvider = GetModelExpressionProvider(helper);
+            return expressionProvider?.CreateModelExpression(helper.ViewData, expr).Metadata;
+        }
+
+        private static ModelMetadata CreatePropertyModelMetadata<TModel, TProperty>(HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expr)
+        {
+            var expressionProvider = GetModelExpressionProvider(helper);
+            return expressionProvider?.CreateModelExpression(helper.ViewData, expr).Metadata;
+        }
+
+        private static ModelExpressionProvider GetModelExpressionProvider<TModel>(HtmlHelper<TModel> helper)
+        {
+            return helper.ViewContext.HttpContext.RequestServices
+                .GetService(typeof(ModelExpressionProvider)) as ModelExpressionProvider;
         }
         #endregion
     }

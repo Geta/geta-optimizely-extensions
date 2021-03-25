@@ -10,7 +10,7 @@ namespace Geta.EPi.Extensions.SingletonPage
     /// </summary>
     public static class Extensions
     {
-        private static readonly IContentReferenceCache DefaultContentReferenceCache 
+        private static readonly IContentReferenceCache DefaultContentReferenceCache
                                                             = new DefaultContentReferenceCache();
 
         /// <summary>

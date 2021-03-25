@@ -1,5 +1,5 @@
-﻿using System.Text.RegularExpressions;
-using System.Web;
+﻿using Microsoft.AspNetCore.Http;
+using System.Text.RegularExpressions;
 
 namespace Geta.EPi.Extensions
 {
@@ -15,11 +15,13 @@ namespace Geta.EPi.Extensions
         /// <returns></returns>
         public static bool IsCrawler(this HttpRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.UserAgent))
+            var userAgent = request.Headers["User-Agent"].ToString();
+
+            if (string.IsNullOrWhiteSpace(userAgent))
                 return false;
 
             return Regex.IsMatch(
-                request.UserAgent,
+                userAgent,
                 @"bot|crawler|baiduspider|80legs|ia_archiver|voyager|curl|wget|yahoo! slurp|mediapartners-google",
                 RegexOptions.IgnoreCase);
         }

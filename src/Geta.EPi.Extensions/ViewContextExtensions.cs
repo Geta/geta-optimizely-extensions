@@ -1,6 +1,6 @@
-﻿using System.Web.Mvc;
-using EPiServer.Web;
-using EPiServer.Web.Routing;
+﻿using EPiServer.Web;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Geta.EPi.Extensions
 {
@@ -26,7 +26,8 @@ namespace Geta.EPi.Extensions
         /// <returns></returns>
         public static bool IsBlockInEditMode(this ViewContext context)
         {
-            return context.RequestContext.GetContextMode() == ContextMode.Edit && context.IsBlockPreview();
+            var mode = context.HttpContext.RequestServices.GetRequiredService<IContextModeResolver>().CurrentMode;
+            return mode == ContextMode.Edit && context.IsBlockPreview();
         }
     }
 }

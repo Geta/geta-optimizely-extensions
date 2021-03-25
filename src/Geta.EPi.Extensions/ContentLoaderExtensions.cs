@@ -8,7 +8,7 @@ namespace Geta.EPi.Extensions
     public static class ContentLoaderExtensions
     {
         /// <summary>
-        /// Gets the first child of of the content item represented by the provided reference. 
+        /// Gets the first child of of the content item represented by the provided reference.
         /// </summary>
         /// <param name="contentLoader"></param>
         /// <param name="contentReference"></param>
@@ -20,7 +20,7 @@ namespace Geta.EPi.Extensions
         }
 
         /// <summary>
-        /// Gets the first child of of the content item represented by the provided reference. 
+        /// Gets the first child of of the content item represented by the provided reference.
         /// </summary>
         /// <param name="contentLoader"></param>
         /// <param name="contentReference"></param>

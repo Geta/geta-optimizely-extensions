@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Web.Mvc;
 using EPiServer.Shell.ObjectEditing;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 namespace Geta.EPi.Extensions.EditorDescriptors
 {
     /// <summary>
     /// EPiServer Editor descriptor for creating custom properties with enum types as options
     /// Source: http://world.episerver.com/Blogs/Linus-Ekstrom/Dates/2014/5/Enum-properties-for-EPiServer-75/
-    /// </summary>    
-    public class EnumAttribute : SelectOneAttribute, IMetadataAware
+    /// </summary>
+    public class EnumAttribute : SelectOneAttribute
     {
         /// <summary>
         /// Enum type in EnumAttribute
@@ -24,10 +25,12 @@ namespace Geta.EPi.Extensions.EditorDescriptors
             EnumType = enumType;
         }
 
-        public new void OnMetadataCreated(ModelMetadata metadata)
+        public new void OnMetadataCreated(ExtendedMetadata metadata)
         {
             SelectionFactoryType = typeof(EnumSelectionFactory<>).MakeGenericType(EnumType);
-            base.OnMetadataCreated(metadata);
+            var key = ModelMetadataIdentity.ForType(typeof(Enum));
+            var displayMetadataProvider = new DisplayMetadataProviderContext(key, metadata.Attributes as ModelAttributes);
+            base.CreateDisplayMetadata(displayMetadataProvider);
         }
     }
 

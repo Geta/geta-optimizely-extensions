@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using EPiFakeMaker;
+using Geta.EPi.Extensions.Tests.EPiFakeMaker;
 
 namespace Geta.EPi.Extensions.Tests.Base
 {

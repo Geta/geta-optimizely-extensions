@@ -1,15 +1,21 @@
-﻿using System.Web;
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
+using Geta.EPi.Extensions.Helpers;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.IO;
+using System.Text.Encodings.Web;
+using System.Web;
 
 namespace Geta.EPi.Extensions.QueryString
 {
     /// <summary>
     ///     Helper class for creating and modifying URL's QueryString.
     /// </summary>
-    public class QueryStringBuilder : IHtmlString
+    public class QueryStringBuilder : IHtmlContent
     {
         protected readonly UrlBuilder UrlBuilder;
         protected readonly UrlResolver EPiUrlResolver;
@@ -43,15 +49,10 @@ namespace Geta.EPi.Extensions.QueryString
         /// <param name="contentLink">ContentReference for which to build query.</param>
         /// <param name="urlResolver">UrlResolver instance.</param>
         /// <param name="includeHost">Mark if include host name in the url.</param>
-        public QueryStringBuilder(ContentReference contentLink, UrlResolver urlResolver, bool includeHost = false)
+        /// <param name="context">HttpContext, include if includeHost is true.</param>
+        public QueryStringBuilder(ContentReference contentLink, UrlResolver urlResolver, bool includeHost = false, HttpContext context = null)
         {
-            EPiUrlResolver = urlResolver;
-            var url = EPiUrlResolver.GetUrl(contentLink);
-
-            if (includeHost)
-            {
-                url = url.GetExternalUrl();
-            }
+            var url = contentLink.GetFriendlyUrl(includeHost, false, context, urlResolver);
 
             UrlBuilder = new UrlBuilder(url);
         }
@@ -128,7 +129,7 @@ namespace Geta.EPi.Extensions.QueryString
         /// <returns>Instance of modified QueryStringBuilder.</returns>
         public QueryStringBuilder AddSegment(string segment)
         {
-            UrlBuilder.Path = VirtualPathUtility.AppendTrailingSlash(UrlBuilder.Path) + HttpUtility.UrlPathEncode(segment.TrimStart('/'));
+            UrlBuilder.Path = UrlBuilder.Path.AppendTrailingSlash() + HttpUtility.UrlPathEncode(segment.TrimStart('/'));
             return this;
         }
 
@@ -171,8 +172,24 @@ namespace Geta.EPi.Extensions.QueryString
             return UrlBuilder.ToString();
         }
 
+        /// <inheritdoc />
+        public void WriteTo(TextWriter writer, HtmlEncoder encoder)
+        {
+            if (writer == null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
+            if (encoder == null)
+            {
+                throw new ArgumentNullException(nameof(encoder));
+            }
+
+            encoder.Encode(writer, UrlBuilder.ToString());
+        }
+
         /// <summary>
-        ///     Returns string representation of URL with query string. This is implementation of IHtmlString.
+        ///     Returns string representation of URL with query string. This is implementation of IHtmlContent.
         /// </summary>
         /// <returns>String representation of URL with query string.</returns>
         public string ToHtmlString()

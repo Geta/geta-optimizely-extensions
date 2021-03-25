@@ -1,10 +1,11 @@
-﻿using System;
-using System.Web;
-using System.Web.Mvc;
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
+using System;
 
 namespace Geta.EPi.Extensions
 {
@@ -69,18 +70,22 @@ namespace Geta.EPi.Extensions
         /// </summary>
         /// <param name="url">Url for which to create Html string.</param>
         /// <returns>Html string with Url if Url is not null. Otherwise returns empty string.</returns>
-        public static IHtmlString ToIHtmlString(this Url url)
+        public static IHtmlContent ToIHtmlContent(this Url url)
         {
             return url == null
-                ? MvcHtmlString.Empty
-                : MvcHtmlString.Create(url.ToString());
+                ? HtmlString.Empty
+                : new HtmlString(url.ToString());
         }
 
         private static Uri GetBaseUri()
         {
-            return HttpContext.Current == null
-                ? SiteDefinition.Current.SiteUrl
-                : new Uri(HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority));
+            var httpContext = ServiceLocator.Current.GetInstance<IHttpContextAccessor>().HttpContext;
+            if (httpContext == null)
+            {
+                return SiteDefinition.Current.SiteUrl;
+            }
+            var uriString = new Uri(httpContext.Request.GetDisplayUrl()).GetLeftPart(UriPartial.Authority);
+            return new Uri(uriString);
         }
     }
 }

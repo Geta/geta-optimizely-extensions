@@ -1,7 +1,7 @@
-﻿using BVNetwork.NotFound.Tests.Base.Http;
-using EPiServer.Web;
+﻿using EPiServer.Web;
 using Geta.EPi.Extensions.Helpers;
 using System;
+using Geta.EPi.Extensions.Tests.Base.Http;
 using Xunit;
 
 namespace Geta.EPi.Extensions.Tests.Helpers

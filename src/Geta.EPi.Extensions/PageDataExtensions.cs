@@ -4,6 +4,7 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
+using Microsoft.AspNetCore.Http;
 
 namespace Geta.EPi.Extensions
 {
@@ -68,7 +69,6 @@ namespace Geta.EPi.Extensions
             if (page == null
                 || PageReference.IsNullOrEmpty(page.ParentLink)
                 || DataFactory.Instance.IsWastebasket(page.PageLink))
-                // TODO: Might be obsolete in EPi 7 - should verify
             {
                 return null;
             }
@@ -213,9 +213,10 @@ namespace Geta.EPi.Extensions
         /// <param name="page">Page to get canonical url for</param>
         /// <param name="considerFetchDataFrom">Consider fetch data from setting in EPiServer.</param>
         /// <param name="considerSimpleAddress">Use simple address of page if it is set.</param>
+        /// <param name="context">HttpContext, include if considerSimpleAddress is true.</param>
         /// <param name="urlResolver">Optional UrlResolver instance.</param>
         /// <returns>The complete link to the page. If LinkType is FetchData then the original page URL will be returned.</returns>
-        public static string GetCanonicalUrl(this PageData page, bool considerFetchDataFrom = true, bool considerSimpleAddress = false, UrlResolver urlResolver = null)
+        public static string GetCanonicalUrl(this PageData page, bool considerFetchDataFrom = true, bool considerSimpleAddress = false, HttpContext context = null, UrlResolver urlResolver = null)
         {
             if (page == null)
             {
@@ -246,7 +247,12 @@ namespace Geta.EPi.Extensions
 
                 if (!string.IsNullOrWhiteSpace(simpleAddress))
                 {
-                    return simpleAddress.GetExternalUrl();
+                    if (context == null)
+                    {
+                        context = ServiceLocator.Current.GetInstance<IHttpContextAccessor>().HttpContext;
+                    }
+
+                    return simpleAddress.GetExternalUrl(context);
                 }
             }
 
