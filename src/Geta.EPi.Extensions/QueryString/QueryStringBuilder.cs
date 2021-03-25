@@ -52,18 +52,7 @@ namespace Geta.EPi.Extensions.QueryString
         /// <param name="context">HttpContext, include if includeHost is true.</param>
         public QueryStringBuilder(ContentReference contentLink, UrlResolver urlResolver, bool includeHost = false, HttpContext context = null)
         {
-            EPiUrlResolver = urlResolver;
-            var url = EPiUrlResolver.GetUrl(contentLink);
-
-            if (includeHost)
-            {
-                if (context == null)
-                {
-                    context = ServiceLocator.Current.GetInstance<IHttpContextAccessor>().HttpContext;
-                }
-
-                url = url.GetExternalUrl(context);
-            }
+            var url = contentLink.GetFriendlyUrl(includeHost, false, context, urlResolver);
 
             UrlBuilder = new UrlBuilder(url);
         }
