@@ -7,7 +7,8 @@
     <authors>Geta Digital</authors>
     <owners>Geta Digital</owners>
     <projectUrl>
-      https://github.com/Geta/geta-optimizely-extensions</projectUrl>
+      https://github.com/Geta/geta-optimizely-extensions
+    </projectUrl>
     <licenseUrl>https://github.com/Geta/geta-optimizely-extensions/blob/master/LICENSE.txt</licenseUrl>
     <repository type="git" url="https://github.com/Geta/geta-optimizely-extensions"
                 branch="Master" commit="COMMIT" />
