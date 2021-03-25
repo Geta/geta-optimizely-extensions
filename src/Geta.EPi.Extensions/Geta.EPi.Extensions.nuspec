@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Geta.EPi.Extensions</id>
+    <version>3.0.0</version>
+    <title>Geta.EPi.Extensions</title>
+    <authors>Geta Digital</authors>
+    <owners>Geta Digital</owners>
+    <projectUrl>
+      https://github.com/Geta/geta-optimizely-extensions</projectUrl>
+    <licenseUrl>https://github.com/Geta/geta-optimizely-extensions/blob/master/LICENSE.txt</licenseUrl>
+    <repository type="git" url="https://github.com/Geta/geta-optimizely-extensions"
+                branch="Master" commit="COMMIT" />
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Extensions and helpers library for EPiServer CMS</description>
+    <copyright>Copyright © 2021 Geta Digital</copyright>
+    <iconUrl>http://cdn.geta.no/opensource/icons/geta-epi-icon.png</iconUrl>
+    <tags>EPiServer</tags>
+  </metadata>
+</package>
