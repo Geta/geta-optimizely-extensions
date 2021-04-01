@@ -25,7 +25,7 @@ namespace Geta.EPi.Extensions.EditorDescriptors
             EnumType = enumType;
         }
 
-        public new void OnMetadataCreated(ExtendedMetadata metadata)
+        public void OnMetadataCreated(ExtendedMetadata metadata)
         {
             SelectionFactoryType = typeof(EnumSelectionFactory<>).MakeGenericType(EnumType);
             var key = ModelMetadataIdentity.ForType(typeof(Enum));
