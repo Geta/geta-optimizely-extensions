@@ -7,10 +7,10 @@
     <authors>Geta Digital</authors>
     <owners>Geta Digital</owners>
     <projectUrl>
-      https://github.com/Geta/geta-optimizely-extensions
+      https://github.com/Geta/geta-episerver-extensions
     </projectUrl>
-    <licenseUrl>https://github.com/Geta/geta-optimizely-extensions/blob/master/LICENSE.txt</licenseUrl>
-    <repository type="git" url="https://github.com/Geta/geta-optimizely-extensions"
+    <licenseUrl>https://github.com/Geta/geta-episerver-extensions/blob/master/LICENSE.txt</licenseUrl>
+    <repository type="git" url="https://github.com/Geta/geta-episerver-extensions"
                 branch="Master" commit="COMMIT" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Extensions and helpers library for EPiServer CMS</description>
