@@ -3,7 +3,7 @@
 namespace Geta.Optimizely.Extensions.Helpers
 {
     /// <summary>
-    ///     Helper methods for working with EPiServer PageData objects
+    ///     Helper methods for working with Optimizely PageData objects
     /// </summary>
     public static class PageHelper
     {

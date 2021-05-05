@@ -4,7 +4,7 @@ using System;
 namespace Geta.Optimizely.Extensions.Attributes
 {
     /// <summary>
-    ///     Attribute for decorating Episerver content type properties. If a property is decorated with
+    ///     Attribute for decorating Optimizely content type properties. If a property is decorated with
     ///     this attribute it will be possible to render a edit button in edit mode for a property that
     ///     isn't normally rendered in the view for the content type.
     /// </summary>

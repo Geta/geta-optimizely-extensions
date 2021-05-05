@@ -158,7 +158,7 @@ namespace Geta.Optimizely.Extensions
         /// </summary>
         /// <param name="page">Page for which to create friendly url.</param>
         /// <param name="includeHost">Mark if include host name in the url, unless it is external url then it still will contain absolute url.</param>
-        /// <param name="ignoreContextMode">Mark if Url should be generating ignoring context mode. Settings this parameter to <c>true</c> friendly Url will be generated, even in EPiServer EditMode.</param>
+        /// <param name="ignoreContextMode">Mark if Url should be generating ignoring context mode. Settings this parameter to <c>true</c> friendly Url will be generated, even in Optimizely EditMode.</param>
         /// <returns>String representation of URL for provided page.</returns>
         public static string GetFriendlyUrl(this PageData page, bool includeHost = false, bool ignoreContextMode = false)
         {
@@ -171,7 +171,7 @@ namespace Geta.Optimizely.Extensions
         /// <param name="page">Page for which to create friendly url.</param>
         /// <param name="language">Language of content</param>
         /// <param name="includeHost">Mark if include host name in the url.</param>
-        /// <param name="ignoreContextMode">Mark if Url should be generating ignoring context mode. Settings this parameter to <c>true</c> friendly Url will be generated, even in EPiServer EditMode.</param>
+        /// <param name="ignoreContextMode">Mark if Url should be generating ignoring context mode. Settings this parameter to <c>true</c> friendly Url will be generated, even in Optimizely EditMode.</param>
         /// <returns>String representation of URL for provided page.</returns>
         public static string GetFriendlyUrl(this PageData page, string language, bool includeHost = false, bool ignoreContextMode = false)
         {
@@ -211,7 +211,7 @@ namespace Geta.Optimizely.Extensions
         /// Gets the canonical link for a page.
         /// </summary>
         /// <param name="page">Page to get canonical url for</param>
-        /// <param name="considerFetchDataFrom">Consider fetch data from setting in EPiServer.</param>
+        /// <param name="considerFetchDataFrom">Consider fetch data from setting in Optimizely.</param>
         /// <param name="considerSimpleAddress">Use simple address of page if it is set.</param>
         /// <param name="context">HttpContext, include if considerSimpleAddress is true.</param>
         /// <param name="urlResolver">Optional UrlResolver instance.</param>

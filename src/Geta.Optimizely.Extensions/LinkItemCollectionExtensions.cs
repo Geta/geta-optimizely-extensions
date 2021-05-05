@@ -14,9 +14,9 @@ namespace Geta.Optimizely.Extensions
     public static class LinkItemCollectionExtensions
     {
         /// <summary>
-        ///     Returns a PageDataCollection with all the EPiServer pages from a LinkItemCollection.
+        ///     Returns a PageDataCollection with all the Optimizely pages from a LinkItemCollection.
         /// </summary>
-        /// <param name="linkItemCollection">Source LinkItemCollection to look for EPiServer pages.</param>
+        /// <param name="linkItemCollection">Source LinkItemCollection to look for Optimizely pages.</param>
         /// <returns>PageDataCollection with EPiServer pages from a LinkItemCollection.</returns>
         public static PageDataCollection ToPageDataCollection(this LinkItemCollection linkItemCollection)
         {
@@ -24,10 +24,10 @@ namespace Geta.Optimizely.Extensions
         }
 
         /// <summary>
-        ///     Returns a sequence with all the EPiServer pages of given type <typeparamref name="T" /> in a LinkItemCollection
+        ///     Returns a sequence with all the Optimizely pages of given type <typeparamref name="T" /> in a LinkItemCollection
         /// </summary>
-        /// <param name="linkItemCollection">Source LinkItemCollection to look for EPiServer pages.</param>
-        /// <returns>Sequence of the EPiServer pages of type <typeparamref name="T" /> in a LinkItemCollection</returns>
+        /// <param name="linkItemCollection">Source LinkItemCollection to look for Optimizely pages.</param>
+        /// <returns>Sequence of the Optimizely pages of type <typeparamref name="T" /> in a LinkItemCollection</returns>
         public static IEnumerable<T> ToEnumerable<T>(this LinkItemCollection linkItemCollection)
             where T : PageData
         {

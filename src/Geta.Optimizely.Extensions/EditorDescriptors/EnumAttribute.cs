@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 namespace Geta.Optimizely.Extensions.EditorDescriptors
 {
     /// <summary>
-    /// EPiServer Editor descriptor for creating custom properties with enum types as options
+    /// Optimizely Editor descriptor for creating custom properties with enum types as options
     /// Source: http://world.episerver.com/Blogs/Linus-Ekstrom/Dates/2014/5/Enum-properties-for-EPiServer-75/
     /// </summary>
     public class EnumAttribute : SelectOneAttribute

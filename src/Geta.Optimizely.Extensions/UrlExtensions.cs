@@ -16,7 +16,7 @@ namespace Geta.Optimizely.Extensions
     {
         /// <summary>
         ///     Creates external Uri from provided Url.
-        ///     Uses HttpContext if available, otherwise uses EPiServer SiteDefinition SiteUrl.
+        ///     Uses HttpContext if available, otherwise uses Optimizely SiteDefinition SiteUrl.
         /// </summary>
         /// <param name="url">Url for which to create Uri.</param>
         /// <returns>External Uri for Url.</returns>
@@ -42,7 +42,7 @@ namespace Geta.Optimizely.Extensions
         }
 
         /// <summary>
-        ///     Gets the friendly URL for the EPiServer permanent link.
+        ///     Gets the friendly URL for the Optimizely permanent link.
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <returns></returns>

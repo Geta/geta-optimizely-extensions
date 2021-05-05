@@ -6,7 +6,7 @@ using EPiServer.Shell.ObjectEditing;
 namespace Geta.Optimizely.Extensions.EditorDescriptors
 {
     /// <summary>
-    /// Selection factory for enum types used by EPiServer Properties
+    /// Selection factory for enum types used by Optimizely Properties
     /// </summary>
     /// <typeparam name="TEnum">Enum type with options</typeparam>
     public class EnumSelectionFactory<TEnum> : ISelectionFactory

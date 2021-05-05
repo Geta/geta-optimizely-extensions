@@ -32,7 +32,7 @@ namespace Geta.Optimizely.Extensions
         /// Gets the canonical URL for a page. If LinkType is FetchData the original page URL will be the canonical link.
         /// </summary>
         /// <param name="pageLink">The PageReference to get canonical URL from.</param>
-        /// <param name="considerFetchDataFrom">Consider fetch data from setting in EPiServer.</param>
+        /// <param name="considerFetchDataFrom">Consider fetch data from setting in Optimizely.</param>
         /// <returns></returns>
         public static string GetCanonicalUrl(this PageReference pageLink, bool considerFetchDataFrom = true)
         {

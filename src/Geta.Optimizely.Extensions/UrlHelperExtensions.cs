@@ -85,7 +85,7 @@ namespace Geta.Optimizely.Extensions
         }
 
         /// <summary>
-        ///     Creates QueryStringBuilder instance for provided EPiServer page.
+        ///     Creates QueryStringBuilder instance for provided Optimizely page.
         /// </summary>
         /// <param name="urlHelper">UrlHelper instance.</param>
         /// <param name="content">Content for which to create builder.</param>
@@ -102,7 +102,7 @@ namespace Geta.Optimizely.Extensions
         }
 
         /// <summary>
-        ///     Creates QueryStringBuilder instance for provided EPiServer page.
+        ///     Creates QueryStringBuilder instance for provided Optimizely page.
         /// </summary>
         /// <param name="urlHelper">UrlHelper instance.</param>
         /// <param name="contentLink">ContentReference for which to create builder.</param>

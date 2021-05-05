@@ -7,7 +7,7 @@ namespace Geta.Optimizely.Extensions.EditorDescriptors
 {
     /// <summary>
     /// Obsolete.
-    /// EPiServer Editor descriptor for creating custom properties with enum types as options
+    /// Optimizely Editor descriptor for creating custom properties with enum types as options
     /// Source: http://joelabrahamsson.com/enum-properties-with-episerver/
     /// </summary>
     /// <typeparam name="TEnum">Enum type with options</typeparam>
