@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Linq.Expressions;
 
-namespace Foundation.Core.Extensions
+namespace Geta.Optimizely.Extensions
 {
     public static class ModelMetadataExtensions
     {

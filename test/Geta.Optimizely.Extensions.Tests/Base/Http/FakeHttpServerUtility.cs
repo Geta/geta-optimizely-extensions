@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BVNetwork.NotFound.Tests.Base.Http
+namespace Geta.Optimizely.Extensions.Tests.Base.Http
 {
     public class FakeHttpServerUtility
     {
