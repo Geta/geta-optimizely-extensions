@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     ///     <see cref="HtmlHelper"/> extension methods for improved content editor user experience.

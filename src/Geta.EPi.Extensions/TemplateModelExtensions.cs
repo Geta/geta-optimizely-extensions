@@ -2,7 +2,7 @@
 using EPiServer.DataAbstraction;
 using EPiServer.Framework.Web;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     ///     <see cref="TemplateModel"/> extension methods.

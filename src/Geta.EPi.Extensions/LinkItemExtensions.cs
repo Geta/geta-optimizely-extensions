@@ -5,7 +5,7 @@ using EPiServer.SpecializedProperties;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Http;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     ///     LinkItem Extensions.

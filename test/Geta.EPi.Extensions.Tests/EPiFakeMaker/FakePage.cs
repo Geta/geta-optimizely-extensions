@@ -7,7 +7,7 @@ using EPiServer.Core;
 using EPiServer.Web;
 using Moq;
 
-namespace Geta.EPi.Extensions.Tests.EPiFakeMaker
+namespace Geta.Optimizely.Extensions.Tests.EPiFakeMaker
 {
     public class FakePage : Fake
     {

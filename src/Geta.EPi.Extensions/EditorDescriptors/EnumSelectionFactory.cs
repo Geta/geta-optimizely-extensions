@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using EPiServer.Framework.Localization;
 using EPiServer.Shell.ObjectEditing;
 
-namespace Geta.EPi.Extensions.EditorDescriptors
+namespace Geta.Optimizely.Extensions.EditorDescriptors
 {
     /// <summary>
     /// Selection factory for enum types used by EPiServer Properties

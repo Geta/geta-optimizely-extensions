@@ -1,7 +1,7 @@
 ﻿using EPiServer.Shell.ObjectEditing;
 using System;
 
-namespace Geta.EPi.Extensions.Attributes
+namespace Geta.Optimizely.Extensions.Attributes
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class EditorHelpAttribute : Attribute

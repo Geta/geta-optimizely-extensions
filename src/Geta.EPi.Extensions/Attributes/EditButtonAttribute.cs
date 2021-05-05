@@ -1,7 +1,7 @@
 ﻿using EPiServer.Shell.ObjectEditing;
 using System;
 
-namespace Geta.EPi.Extensions.Attributes
+namespace Geta.Optimizely.Extensions.Attributes
 {
     /// <summary>
     ///     Attribute for decorating Episerver content type properties. If a property is decorated with

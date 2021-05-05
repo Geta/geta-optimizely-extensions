@@ -3,7 +3,7 @@ using EPiServer.Shell.ObjectEditing;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
-namespace Geta.EPi.Extensions.EditorDescriptors
+namespace Geta.Optimizely.Extensions.EditorDescriptors
 {
     /// <summary>
     /// EPiServer Editor descriptor for creating custom properties with enum types as options

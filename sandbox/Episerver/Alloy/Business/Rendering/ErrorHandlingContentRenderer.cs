@@ -2,7 +2,7 @@ using AlloyTemplates.Models.ViewModels;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.Web.Mvc;
-using Geta.EPi.Extensions;
+using Geta.Optimizely.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Diagnostics;

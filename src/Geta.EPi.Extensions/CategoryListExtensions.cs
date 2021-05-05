@@ -4,7 +4,7 @@ using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.ServiceLocation;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     ///     CategoryList extensions.

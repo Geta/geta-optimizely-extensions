@@ -4,7 +4,7 @@ using EPiServer.Core;
 
 [assembly: InternalsVisibleTo("FakeMaker.Commerce")]
 
-namespace Geta.EPi.Extensions.Tests.EPiFakeMaker
+namespace Geta.Optimizely.Extensions.Tests.EPiFakeMaker
 {
     public abstract class Fake : IFake
     {

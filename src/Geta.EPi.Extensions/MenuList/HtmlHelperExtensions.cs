@@ -15,7 +15,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace Geta.EPi.Extensions.MenuList
+namespace Geta.Optimizely.Extensions.MenuList
 {
     /// <summary>
     ///     HtmlHelper extension for building menu list.

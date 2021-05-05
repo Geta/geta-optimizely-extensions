@@ -8,7 +8,7 @@ using EPiServer.Web;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Http;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     ///     ContentReference extensions.

@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace Geta.EPi.Extensions.Helpers
+namespace Geta.Optimizely.Extensions.Helpers
 {
     /// <summary>
     ///     Helper methods for validation

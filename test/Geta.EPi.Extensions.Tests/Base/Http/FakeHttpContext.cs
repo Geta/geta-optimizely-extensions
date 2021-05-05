@@ -5,7 +5,7 @@ using System.Threading;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 
-namespace Geta.EPi.Extensions.Tests.Base.Http
+namespace Geta.Optimizely.Extensions.Tests.Base.Http
 {
     public class FakeHttpContext : HttpContext
     {

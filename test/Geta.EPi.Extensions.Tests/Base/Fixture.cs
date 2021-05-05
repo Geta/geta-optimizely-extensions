@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Geta.EPi.Extensions.Tests.EPiFakeMaker;
+using Geta.Optimizely.Extensions.Tests.EPiFakeMaker;
 
-namespace Geta.EPi.Extensions.Tests.Base
+namespace Geta.Optimizely.Extensions.Tests.Base
 {
     public class Fixture
     {

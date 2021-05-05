@@ -1,4 +1,4 @@
-﻿namespace Geta.EPi.Extensions
+﻿namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     ///     Constants used in EditorHelpFor and EditButton HTML helpers.

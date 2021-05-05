@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using EPiServer.Shell.ObjectEditing;
 using EPiServer.Shell.ObjectEditing.EditorDescriptors;
 
-namespace Geta.EPi.Extensions.EditorDescriptors
+namespace Geta.Optimizely.Extensions.EditorDescriptors
 {
     /// <summary>
     /// Obsolete.

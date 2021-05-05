@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Geta.EPi.Extensions.Tests.Base.Http
+namespace Geta.Optimizely.Extensions.Tests.Base.Http
 {
     public class FakeHttpResponse : HttpResponse
     {

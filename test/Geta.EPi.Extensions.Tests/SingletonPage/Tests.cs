@@ -1,11 +1,11 @@
 ﻿using EPiServer;
 using EPiServer.ServiceLocation;
-using Geta.EPi.Extensions.SingletonPage;
-using Geta.EPi.Extensions.Tests.Base;
-using Geta.EPi.Extensions.Tests.EPiFakeMaker;
+using Geta.Optimizely.Extensions.SingletonPage;
+using Geta.Optimizely.Extensions.Tests.Base;
+using Geta.Optimizely.Extensions.Tests.EPiFakeMaker;
 using Xunit;
 
-namespace Geta.EPi.Extensions.Tests.SingletonPage
+namespace Geta.Optimizely.Extensions.Tests.SingletonPage
 {
     public class Tests
     {
@@ -172,9 +172,9 @@ namespace Geta.EPi.Extensions.Tests.SingletonPage
         private void SetupFakes()
         {
             _fake = new FakeMaker();
-            EPi.Extensions.SingletonPage.Extensions.InjectedContentLoader = new Injected<IContentLoader>(_fake.ContentRepository);
+            Optimizely.Extensions.SingletonPage.Extensions.InjectedContentLoader = new Injected<IContentLoader>(_fake.ContentRepository);
             _fakeCache = new FakeCache();
-            EPi.Extensions.SingletonPage.Extensions.InjectedCache = new Injected<IContentReferenceCache>(_fakeCache);
+            Optimizely.Extensions.SingletonPage.Extensions.InjectedCache = new Injected<IContentReferenceCache>(_fakeCache);
         }
 
         private FakeMaker _fake;

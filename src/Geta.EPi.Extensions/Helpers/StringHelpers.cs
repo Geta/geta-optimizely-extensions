@@ -1,6 +1,6 @@
 ﻿using Geta.Net.Extensions;
 
-namespace Geta.EPi.Extensions.Helpers
+namespace Geta.Optimizely.Extensions.Helpers
 {
     internal static class StringHelpers
     {

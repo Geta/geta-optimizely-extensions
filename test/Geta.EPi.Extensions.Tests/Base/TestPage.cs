@@ -1,6 +1,6 @@
 using EPiServer.Core;
 
-namespace Geta.EPi.Extensions.Tests.Base
+namespace Geta.Optimizely.Extensions.Tests.Base
 {
     public class TestPage : PageData
     {

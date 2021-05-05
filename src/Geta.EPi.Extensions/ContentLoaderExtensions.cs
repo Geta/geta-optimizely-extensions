@@ -3,7 +3,7 @@ using System.Linq;
 using EPiServer;
 using EPiServer.Core;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     public static class ContentLoaderExtensions
     {

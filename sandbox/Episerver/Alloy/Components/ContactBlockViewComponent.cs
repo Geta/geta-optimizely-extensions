@@ -5,7 +5,7 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.Web;
 using EPiServer.Web.Mvc;
-using Geta.EPi.Extensions;
+using Geta.Optimizely.Extensions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 

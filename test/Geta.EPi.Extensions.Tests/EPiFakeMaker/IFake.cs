@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using EPiServer.Core;
 
-namespace Geta.EPi.Extensions.Tests.EPiFakeMaker
+namespace Geta.Optimizely.Extensions.Tests.EPiFakeMaker
 {
     public interface IFake
     {

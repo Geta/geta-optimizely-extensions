@@ -7,7 +7,7 @@ using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using Moq;
 
-namespace Geta.EPi.Extensions.Tests.EPiFakeMaker
+namespace Geta.Optimizely.Extensions.Tests.EPiFakeMaker
 {
     public interface IFakeMaker
     {

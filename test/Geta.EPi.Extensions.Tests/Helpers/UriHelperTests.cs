@@ -1,10 +1,10 @@
 ﻿using EPiServer.Web;
-using Geta.EPi.Extensions.Helpers;
+using Geta.Optimizely.Extensions.Helpers;
 using System;
-using Geta.EPi.Extensions.Tests.Base.Http;
+using Geta.Optimizely.Extensions.Tests.Base.Http;
 using Xunit;
 
-namespace Geta.EPi.Extensions.Tests.Helpers
+namespace Geta.Optimizely.Extensions.Tests.Helpers
 {
     public class UriHelperTests
     {

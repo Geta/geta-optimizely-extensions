@@ -1,7 +1,7 @@
 using System;
 using EPiServer.Core;
 
-namespace Geta.EPi.Extensions.SingletonPage
+namespace Geta.Optimizely.Extensions.SingletonPage
 {
     /// <summary>
     /// A singleton page's content reference cache.

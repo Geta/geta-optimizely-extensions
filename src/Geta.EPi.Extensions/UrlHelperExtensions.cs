@@ -3,13 +3,13 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Mvc.Html;
-using Geta.EPi.Extensions.Helpers;
-using Geta.EPi.Extensions.QueryString;
+using Geta.Optimizely.Extensions.Helpers;
+using Geta.Optimizely.Extensions.QueryString;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     ///     UrlHelper extensions

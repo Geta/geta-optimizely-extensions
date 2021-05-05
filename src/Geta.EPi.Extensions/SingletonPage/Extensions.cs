@@ -3,7 +3,7 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 
-namespace Geta.EPi.Extensions.SingletonPage
+namespace Geta.Optimizely.Extensions.SingletonPage
 {
     /// <summary>
     /// Singleton page extensions.

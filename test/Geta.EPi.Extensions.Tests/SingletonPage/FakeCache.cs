@@ -1,8 +1,8 @@
 using System.Collections.Concurrent;
 using EPiServer.Core;
-using Geta.EPi.Extensions.SingletonPage;
+using Geta.Optimizely.Extensions.SingletonPage;
 
-namespace Geta.EPi.Extensions.Tests.SingletonPage
+namespace Geta.Optimizely.Extensions.Tests.SingletonPage
 {
     public class FakeCache : DefaultContentReferenceCache
     {

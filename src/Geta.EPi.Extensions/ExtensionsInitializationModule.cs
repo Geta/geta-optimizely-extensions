@@ -4,7 +4,7 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using Microsoft.AspNetCore.Http;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     ///     Initialization module for extensions package.

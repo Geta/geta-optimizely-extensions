@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Routing;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     /// HtmlHelper extensions.

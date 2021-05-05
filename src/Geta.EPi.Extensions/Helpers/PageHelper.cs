@@ -1,6 +1,6 @@
 ﻿using EPiServer.Core;
 
-namespace Geta.EPi.Extensions.Helpers
+namespace Geta.Optimizely.Extensions.Helpers
 {
     /// <summary>
     ///     Helper methods for working with EPiServer PageData objects

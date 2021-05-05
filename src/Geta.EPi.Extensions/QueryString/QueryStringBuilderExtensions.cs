@@ -1,4 +1,4 @@
-﻿namespace Geta.EPi.Extensions.QueryString
+﻿namespace Geta.Optimizely.Extensions.QueryString
 {
     /// <summary>
     /// Extensions for QueryStringBuilder

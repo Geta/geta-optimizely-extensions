@@ -15,6 +15,6 @@
     <None Include="wwwroot\**\*.*" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Geta.EPi.Extensions\Geta.EPi.Extensions.csproj" />
+    <ProjectReference Include="..\..\..\src\Geta.EPi.Extensions\Geta.Optimizely.Extensions.csproj" />
   </ItemGroup>
 </Project>

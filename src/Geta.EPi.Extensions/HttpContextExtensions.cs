@@ -1,9 +1,9 @@
 ﻿using EPiServer.Web;
-using Geta.EPi.Extensions.Helpers;
+using Geta.Optimizely.Extensions.Helpers;
 using Microsoft.AspNetCore.Http;
 using System;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     /// Extensions for <see cref="HttpContext"/>

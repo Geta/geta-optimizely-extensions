@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace Geta.EPi.Extensions.Tests.Extensions
+namespace Geta.Optimizely.Extensions.Tests.Extensions
 {
     public class StringExtensionsTests
     {

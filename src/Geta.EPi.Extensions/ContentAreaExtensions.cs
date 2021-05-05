@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using EPiServer.Core;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     /// Content area extensions.

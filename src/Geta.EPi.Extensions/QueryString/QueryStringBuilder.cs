@@ -2,7 +2,7 @@
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
-using Geta.EPi.Extensions.Helpers;
+using Geta.Optimizely.Extensions.Helpers;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -10,7 +10,7 @@ using System.IO;
 using System.Text.Encodings.Web;
 using System.Web;
 
-namespace Geta.EPi.Extensions.QueryString
+namespace Geta.Optimizely.Extensions.QueryString
 {
     /// <summary>
     ///     Helper class for creating and modifying URL's QueryString.

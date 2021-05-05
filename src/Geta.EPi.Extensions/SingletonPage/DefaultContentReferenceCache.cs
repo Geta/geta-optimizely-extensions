@@ -2,7 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using EPiServer.Core;
 
-namespace Geta.EPi.Extensions.SingletonPage
+namespace Geta.Optimizely.Extensions.SingletonPage
 {
     /// <summary>
     /// Default cache for singleton page content references.

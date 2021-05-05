@@ -1,7 +1,7 @@
 using System;
 using EPiServer.Core;
 
-namespace Geta.EPi.Extensions.MenuList
+namespace Geta.Optimizely.Extensions.MenuList
 {
     /// <summary>
     ///     Generic model for one menu item.

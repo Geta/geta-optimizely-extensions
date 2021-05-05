@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using System;
 
-namespace Geta.EPi.Extensions.Helpers
+namespace Geta.Optimizely.Extensions.Helpers
 {
     /// <summary>
     /// Uri helpers

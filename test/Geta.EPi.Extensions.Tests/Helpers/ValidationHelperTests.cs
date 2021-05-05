@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
-using Geta.EPi.Extensions.Helpers;
+using Geta.Optimizely.Extensions.Helpers;
 using Xunit;
 
-namespace Geta.EPi.Extensions.Tests.Helpers
+namespace Geta.Optimizely.Extensions.Tests.Helpers
 {
     public class ValidationHelperTests
     {

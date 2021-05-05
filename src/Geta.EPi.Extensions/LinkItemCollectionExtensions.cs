@@ -6,7 +6,7 @@ using EPiServer.ServiceLocation;
 using EPiServer.SpecializedProperties;
 using Geta.Net.Extensions;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     ///     LinkItemCollection extensions.

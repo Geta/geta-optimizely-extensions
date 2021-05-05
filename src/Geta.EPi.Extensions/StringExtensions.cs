@@ -3,7 +3,7 @@ using Geta.Net.Extensions;
 using System;
 using Microsoft.AspNetCore.Http;
 
-namespace Geta.EPi.Extensions
+namespace Geta.Optimizely.Extensions
 {
     /// <summary>
     ///     String extensions.
