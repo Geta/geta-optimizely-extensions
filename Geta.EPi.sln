@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geta.EPi.Extensions", "src\Geta.EPi.Extensions\Geta.EPi.Extensions.csproj", "{141CAB2E-042D-47B6-BEF2-2DDA6C430EE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geta.Optimizely.Extensions.Tests", "test\Geta.Optimizely.Extensions.Tests\Geta.Optimizely.Extensions.Tests.csproj", "{892880C9-E837-403E-B043-42D1425DD6B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geta.EPi.Extensions.Tests", "test\Geta.EPi.Extensions.Tests\Geta.EPi.Extensions.Tests.csproj", "{0296E454-D62F-4633-B443-76D7868360CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geta.Optimizely.Extensions", "src\Geta.Optimizely.Extensions\Geta.Optimizely.Extensions.csproj", "{03E93F7D-AC51-47DA-8088-71F94ECF1F56}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlloyMvcTemplates", "sandbox\Episerver\Alloy\AlloyMvcTemplates.csproj", "{F934FBED-5A65-4A06-A0C6-07E6904BDA18}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sandbox", "Sandbox", "{894CA320-E575-4A09-9E0D-2E72E7146BCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlloyMvcTemplates", "sandbox\Optimizely\Alloy\AlloyMvcTemplates.csproj", "{3096A36D-29EE-4FCA-AB9A-C6E9AD5148D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,21 +17,24 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{141CAB2E-042D-47B6-BEF2-2DDA6C430EE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{141CAB2E-042D-47B6-BEF2-2DDA6C430EE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{141CAB2E-042D-47B6-BEF2-2DDA6C430EE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{141CAB2E-042D-47B6-BEF2-2DDA6C430EE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0296E454-D62F-4633-B443-76D7868360CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0296E454-D62F-4633-B443-76D7868360CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0296E454-D62F-4633-B443-76D7868360CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0296E454-D62F-4633-B443-76D7868360CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F934FBED-5A65-4A06-A0C6-07E6904BDA18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F934FBED-5A65-4A06-A0C6-07E6904BDA18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F934FBED-5A65-4A06-A0C6-07E6904BDA18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F934FBED-5A65-4A06-A0C6-07E6904BDA18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{892880C9-E837-403E-B043-42D1425DD6B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{892880C9-E837-403E-B043-42D1425DD6B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{892880C9-E837-403E-B043-42D1425DD6B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{892880C9-E837-403E-B043-42D1425DD6B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03E93F7D-AC51-47DA-8088-71F94ECF1F56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03E93F7D-AC51-47DA-8088-71F94ECF1F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03E93F7D-AC51-47DA-8088-71F94ECF1F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03E93F7D-AC51-47DA-8088-71F94ECF1F56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3096A36D-29EE-4FCA-AB9A-C6E9AD5148D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3096A36D-29EE-4FCA-AB9A-C6E9AD5148D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3096A36D-29EE-4FCA-AB9A-C6E9AD5148D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3096A36D-29EE-4FCA-AB9A-C6E9AD5148D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3096A36D-29EE-4FCA-AB9A-C6E9AD5148D9} = {894CA320-E575-4A09-9E0D-2E72E7146BCE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {85FD3D50-7D7A-4211-B18C-6A93B1BC9258}

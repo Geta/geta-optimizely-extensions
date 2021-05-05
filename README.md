@@ -1,4 +1,4 @@
-# Extensions and helpers library for EPiServer CMS
+# Extensions and helpers library for Optimizely CMS
 
 * Master<br>
 ![](http://tc.geta.no/app/rest/builds/buildType:(id:Geta_Extensions_00ci),branch:master/statusIcon)
@@ -7,15 +7,15 @@
 
 ## Description
 
-EPi.Extensions is library with useful extension methods and helpers for EPiServer.
+Optimizely.Extensions is library with useful extension methods and helpers for Optimizely.
 
 ## How to get started?
 
 Start by installing NuGet package (use [EPiServer NuGet](http://nuget.episerver.com/)):
 
-    Install-Package Geta.EPi.Extensions
+    Install-Package Geta.Optimizely.Extensions
 
-See [reference](http://geta.github.io/EPi.Extensions/) and examples below.
+See [reference](http://geta.github.io/geta-optimizely-extensions/) and examples below.
 
 ## Features
 
@@ -96,7 +96,7 @@ Output when URL is: /list?sort=alphabet
 
     <a href="/list">A-Å</a>
     
-Here is an example of using _QueryStringBuilder_ to add a segment to a EPiServer page URL. This can be useful for forms if you want to post to a page controller action.
+Here is an example of using _QueryStringBuilder_ to add a segment to a Optimizely page URL. This can be useful for forms if you want to post to a page controller action.
 
     <form action="@Url.QueryBuilder(Model.CurrentPage.ContentLink).AddSegment("MyActionName")"></form>
     
@@ -156,7 +156,7 @@ Loading the singleton page of a type by a parent page.
 ### Content editor user experience helpers/extensions
 
 Set of extension methods and HTML helpers to improve user experience for content editors. 
-The goal is to reduce the need for "All properties view" in the Episerver edit interface.
+The goal is to reduce the need for "All properties view" in the Optimizely edit interface.
 
 ### EditButton attribute
 
