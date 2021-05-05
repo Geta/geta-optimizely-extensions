@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlloyMvcTemplates", "sandbox\Episerver\Alloy\AlloyMvcTemplates.csproj", "{F934FBED-5A65-4A06-A0C6-07E6904BDA18}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geta.Optimizely.Extensions", "src\Geta.EPi.Extensions\Geta.Optimizely.Extensions.csproj", "{F9C1575A-B1A3-4B8B-9EAE-DBC0B1FA90E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geta.Optimizely.Extensions.Tests", "test\Geta.Optimizely.Extensions.Tests\Geta.Optimizely.Extensions.Tests.csproj", "{892880C9-E837-403E-B043-42D1425DD6B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geta.Optimizely.Extensions.Tests", "test\Geta.EPi.Extensions.Tests\Geta.Optimizely.Extensions.Tests.csproj", "{972D0111-D853-4AE0-934F-096183BAF0EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geta.Optimizely.Extensions", "src\Geta.Optimizely.Extensions\Geta.Optimizely.Extensions.csproj", "{03E93F7D-AC51-47DA-8088-71F94ECF1F56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{F934FBED-5A65-4A06-A0C6-07E6904BDA18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F934FBED-5A65-4A06-A0C6-07E6904BDA18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F934FBED-5A65-4A06-A0C6-07E6904BDA18}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9C1575A-B1A3-4B8B-9EAE-DBC0B1FA90E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9C1575A-B1A3-4B8B-9EAE-DBC0B1FA90E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9C1575A-B1A3-4B8B-9EAE-DBC0B1FA90E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9C1575A-B1A3-4B8B-9EAE-DBC0B1FA90E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{972D0111-D853-4AE0-934F-096183BAF0EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{972D0111-D853-4AE0-934F-096183BAF0EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{972D0111-D853-4AE0-934F-096183BAF0EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{972D0111-D853-4AE0-934F-096183BAF0EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{892880C9-E837-403E-B043-42D1425DD6B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{892880C9-E837-403E-B043-42D1425DD6B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{892880C9-E837-403E-B043-42D1425DD6B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{892880C9-E837-403E-B043-42D1425DD6B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03E93F7D-AC51-47DA-8088-71F94ECF1F56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03E93F7D-AC51-47DA-8088-71F94ECF1F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03E93F7D-AC51-47DA-8088-71F94ECF1F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03E93F7D-AC51-47DA-8088-71F94ECF1F56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

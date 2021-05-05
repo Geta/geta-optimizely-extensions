@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Geta.EPi.Extensions\Geta.Optimizely.Extensions.csproj" />
+    <ProjectReference Include="..\..\src\Geta.Optimizely.Extensions\Geta.Optimizely.Extensions.csproj" />
   </ItemGroup>
 
 </Project>
