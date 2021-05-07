@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlloyMvcTemplates", "sandbo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sandbox", "Sandbox", "{3634BF87-FE65-44EA-A506-6EA56F8C2355}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{2007B9FB-FAEB-4946-872D-5FBAAD50660E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{892880C9-E837-403E-B043-42D1425DD6B7} = {2007B9FB-FAEB-4946-872D-5FBAAD50660E}
 		{2397D6EB-9604-4AA2-97F9-F94567E3A8CF} = {3634BF87-FE65-44EA-A506-6EA56F8C2355}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
