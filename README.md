@@ -10,7 +10,7 @@ Optimizely.Extensions is library with useful extension methods and helpers for O
 
 ## How to get started?
 
-Start by installing NuGet package (use [EPiServer NuGet](http://nuget.episerver.com/)):
+Start by installing NuGet package:
 
     Install-Package Geta.Optimizely.Extensions
 
