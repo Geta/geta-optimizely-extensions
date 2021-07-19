@@ -14,8 +14,6 @@ Start by installing NuGet package:
 
     Install-Package Geta.Optimizely.Extensions
 
-See [reference](http://geta.github.io/geta-optimizely-extensions/) and examples below.
-
 ## Features
 
 ### Basics
