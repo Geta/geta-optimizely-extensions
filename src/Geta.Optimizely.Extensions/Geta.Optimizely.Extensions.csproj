@@ -16,7 +16,7 @@
     <Description>Geta.EPi.Extensions is library with useful extension methods and helpers for Optimizely.</Description>
     <PackageReleaseNotes>https://github.com/Geta/geta-optimizely-extensions/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <PackageTags>Extensions Optimizely Geta</PackageTags>
-    <RepositoryUrl>https://github.com/Geta/geta-optimizely-extensions</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Geta/geta-optimizely-extensions.git</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
