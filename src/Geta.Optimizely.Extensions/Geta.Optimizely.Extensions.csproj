@@ -24,7 +24,6 @@
     <PackageReference Include="EPiServer.CMS.AspNetCore.Migration" Version="12.0.0-inte-017361" />
     <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.0.0-inte-017361" />
     <PackageReference Include="Geta.Net.Extensions" Version="2.1.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.Security.Permissions" Version="5.0.0" />
   </ItemGroup>
