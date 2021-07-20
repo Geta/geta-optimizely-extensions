@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
+using EPiServer.Web;
 
 namespace EPiServer.Templates.Alloy.Mvc
 {

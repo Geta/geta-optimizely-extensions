@@ -106,7 +106,7 @@ namespace Geta.Optimizely.Extensions
 
             if (excludeSelf)
             {
-                siblings = siblings.Where(p => !p.PageGuid.Equals(currentPage.PageGuid));
+                siblings = siblings.Where(p => !p.ContentGuid.Equals(currentPage.ContentGuid));
             }
 
             return siblings;

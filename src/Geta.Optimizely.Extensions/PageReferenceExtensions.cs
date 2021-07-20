@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EPiServer.Core;
 
 namespace Geta.Optimizely.Extensions
@@ -25,7 +26,8 @@ namespace Geta.Optimizely.Extensions
         /// <returns>Instance of PageDataCollection from source sequence.</returns>
         public static PageDataCollection ToPageDataCollection(this IEnumerable<PageReference> pageReferences)
         {
-            return new PageDataCollection(pageReferences);
+            var pages = pageReferences.Select(x => x.GetPage());
+            return new PageDataCollection(pages);
         }
 
         /// <summary>
