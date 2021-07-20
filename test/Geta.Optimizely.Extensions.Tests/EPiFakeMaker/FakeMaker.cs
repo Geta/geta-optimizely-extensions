@@ -62,17 +62,17 @@ namespace Geta.Optimizely.Extensions.Tests.EPiFakeMaker
 
         private static void PrepareServiceLocatorWith<T, T2>(T repo, T2 loader)
         {
-            var serviceLocator = new Mock<IServiceProviderResolver>();
+            var serviceLocator = new Mock<IServiceProvider>();
 
             serviceLocator
-                .Setup(locator => locator.ServiceProvider.GetService(typeof(T)))
+                .Setup(provider => provider.GetService(typeof(T)))
                 .Returns(repo);
 
             serviceLocator
-                .Setup(locator => locator.ServiceProvider.GetService(typeof(T2)))
+                .Setup(provider => provider.GetService(typeof(T2)))
                 .Returns(loader);
 
-            ServiceLocator.SetServiceProviderResolver(serviceLocator.Object);
+            ServiceLocator.SetServiceProvider(serviceLocator.Object);
         }
 
         private void AddToRepository(IList<IFake> fakeList, IFake parent)
