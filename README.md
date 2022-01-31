@@ -41,11 +41,10 @@ _MenuList_ extension method has three optional parameters:
 
 Below is an example how menu can be created for pages under start page.
 
-    @helper MenuItemTemplate(MenuItem item)
-    {
-        <li class="@(item.Selected ? "active" : null)">
+    @{
+        Func<MenuItem, HelperResult> menuItemTemplate =@<li class="@(item.Selected ? "active" : null)">
             @Html.PageLink(item.Page)
-        </li>
+        </li>;
     }
 
     <nav id="main-nav" class="navigation" role="navigation">
@@ -54,28 +53,35 @@ Below is an example how menu can be created for pages under start page.
         </ul>
     </nav>
 
+Or you can do it inline
+
+    <nav id="main-nav" class="navigation" role="navigation">
+        <ul class="nav">
+            @Html.MenuList(ContentReference.StartPage,
+                @<li class="@(item.Selected ? "active" : null)">
+                    @Html.PageLink(item.Page)
+                </li>
+            )
+        </ul>
+    </nav>
+
 _MenuList_ creates the list only for one level. For multiple menu levels use _MenuList_ extension in menu item template to generate sub-levels.
 
-    @helper SubMenuItemTemplate(MenuItem item)
-    {
-        <li class="@(item.Selected ? "active" : null)">
+    @{
+        Func<MenuItem, HelperResult> subMenuItemTemplate =@<li class="@(item.Selected ? "active" : null)">
             @Html.PageLink(item.Page)
-        </li>
-    }
-
-    @helper MenuItemTemplate(MenuItem item)
-    {
-        <li class="@(item.Selected ? "active" : null)">
+        </li>;
+        Func<MenuItem, HelperResult> menuItemTemplate =@<li class="@(item.Selected ? "active" : null)">
             @Html.PageLink(item.Page)
             <ul>
-                @Html.MenuList(item.Page.ContentLink, SubMenuItemTemplate)
+                @Html.MenuList(item.Page.ContentLink, subMenuItemTemplate)
             </ul>
-        </li>
+        </li>;
     }
 
     <nav id="main-nav" class="navigation" role="navigation">
         <ul class="nav">
-            @Html.MenuList(ContentReference.StartPage, MenuItemTemplate)
+            @Html.MenuList(ContentReference.StartPage, menuItemTemplate)
         </ul>
     </nav>
 
@@ -83,7 +89,7 @@ _MenuList_ creates the list only for one level. For multiple menu levels use _Me
 
 Here we have an example of using _QueryStringBuilder_ to build a filter URL. This can be useful for lists that have filter functionality or sort functionality. To instantiate _QueryStringBuilder_ _UrlHelper_ extensions are used.
 
-    <a href="@Url.QueryBuilder(Request.RawUrl).Toggle("sort", "alphabet")">A-Å</a>
+    <a href="@Url.QueryBuilder(Context.Request.GetEncodedUrl()).Toggle("sort", "alphabet")">A-Å</a>
 
 Output when URL is: /list
 
