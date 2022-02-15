@@ -92,9 +92,12 @@ namespace Geta.Optimizely.Extensions
         {
             var baseUri = getBaseUri();
             var uri = new Uri(baseUri, url).ToString();
-            return
-                new UriBuilder(uri) { Scheme = baseUri.Scheme, Port = -1 }
-                .ToString();
+            var uriBuilder = new UriBuilder(uri) { Scheme = baseUri.Scheme };
+            if (baseUri.IsDefaultPort)
+            {
+                uriBuilder.Port = -1;
+            }
+            return uriBuilder.ToString();
         }
     }
 }

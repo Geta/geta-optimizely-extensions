@@ -86,5 +86,19 @@ namespace Geta.Optimizely.Extensions.Tests.Extensions
 
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData("https://mysite.com/", "/page", "https://mysite.com/page")]
+        [InlineData("https://mysite.com:443/", "/page", "https://mysite.com/page")]
+        [InlineData("https://mysite.com:444/", "/page", "https://mysite.com:444/page")]
+        [InlineData("http://mysite.com/", "/page", "http://mysite.com/page")]
+        [InlineData("http://mysite.com:80/", "/page", "http://mysite.com/page")]
+        [InlineData("http://mysite.com:81/", "/page", "http://mysite.com:81/page")]
+        public void AddHost_includes_non_default_port_from_base_url(string baseUrl, string url, string expected)
+        {
+            var result = url.AddHost(() => new Uri(baseUrl));
+
+            Assert.Equal(expected, result);
+        }
     }
 }
