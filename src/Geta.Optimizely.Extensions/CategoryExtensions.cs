@@ -11,7 +11,7 @@ namespace Geta.Optimizely.Extensions
     public static class CategoryExtensions
     {
         #pragma warning disable 649
-        private static Injected<CategoryRepository> _categoryRepository;
+        private static Injected<CategoryRepository> CategoryRepository;
         #pragma warning restore 649
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Geta.Optimizely.Extensions
         /// <returns>Enumeration of child categories.</returns>
         public static IEnumerable<Category> GetChildCategories(this int categoryRootId)
         {
-            var root = _categoryRepository.Service.Get(categoryRootId);
+            var root = CategoryRepository.Service.Get(categoryRootId);
             return root?.Categories ?? Enumerable.Empty<Category>();
         }
     }

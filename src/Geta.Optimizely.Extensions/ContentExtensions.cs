@@ -39,7 +39,7 @@ namespace Geta.Optimizely.Extensions
             if (requirePageTemplate)
             {
                 var templateFilter = ServiceLocator.Current.GetInstance<FilterTemplate>();
-                templateFilter.TemplateTypeCategories = TemplateTypeCategories.Page;
+                templateFilter.TemplateTypeCategories = TemplateTypeCategories.Request;
                 content = content.Where(x => !templateFilter.ShouldFilter(x));
             }
 

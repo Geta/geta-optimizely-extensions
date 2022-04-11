@@ -66,9 +66,14 @@ namespace Geta.Optimizely.Extensions
         /// <returns>Returns instance of parent page of PageData type or null if parent page not found./></returns>
         public static PageData GetParent(this PageData page)
         {
+            bool IsWastebasket()
+            {
+                var manager = ServiceLocator.Current.GetInstance<IContentProviderManager>();
+                return manager.IsWastebasket(page.PageLink);
+            }
             if (page == null
                 || PageReference.IsNullOrEmpty(page.ParentLink)
-                || DataFactory.Instance.IsWastebasket(page.PageLink))
+                || IsWastebasket())
             {
                 return null;
             }

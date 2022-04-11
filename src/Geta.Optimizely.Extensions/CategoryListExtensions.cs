@@ -12,7 +12,7 @@ namespace Geta.Optimizely.Extensions
     public static class CategoryListExtensions
     {
         #pragma warning disable 649
-        private static Injected<CategoryRepository> _categoryRepository;
+        private static Injected<CategoryRepository> CategoryRepository;
         #pragma warning restore 649
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Geta.Optimizely.Extensions
         public static IEnumerable<Category> GetFullCategories(this CategoryList categoryList)
         {
             return categoryList != null
-                ? categoryList.Select(_categoryRepository.Service.Get).Where(category => category != null)
+                ? categoryList.Select(CategoryRepository.Service.Get).Where(category => category != null)
                 : Enumerable.Empty<Category>();
         }
 
@@ -64,7 +64,7 @@ namespace Geta.Optimizely.Extensions
         public static IEnumerable<string> GetCategoryNames(this CategoryList categoryList)
         {
             return categoryList != null
-                ? categoryList.Select(c => _categoryRepository.Service.Get(c).Name)
+                ? categoryList.Select(c => CategoryRepository.Service.Get(c).Name)
                 : Enumerable.Empty<string>();
         }
 
@@ -76,7 +76,7 @@ namespace Geta.Optimizely.Extensions
         /// <returns>true if category exists in CategoryList otherwise false.</returns>
         public static bool Contains(this CategoryList categoryList, string name)
         {
-            return categoryList.Select(c => _categoryRepository.Service.Get(c).Name).Any(categoryName => categoryName.Equals(name));
+            return categoryList.Select(c => CategoryRepository.Service.Get(c).Name).Any(categoryName => categoryName.Equals(name));
         }
     }
 }
