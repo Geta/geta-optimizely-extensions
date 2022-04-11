@@ -33,6 +33,7 @@ namespace Geta.Optimizely.Extensions
         public static IHtmlContent EditorHelp<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr, string helpText)
         {
             var modelMetadata = CreateContentModelMetadata(helper, expr);
+            // ReSharper disable once SuspiciousTypeConversion.Global
             var content = modelMetadata as IContentData;
             return EditorHelp(helper, content, helpText);
         }
@@ -83,30 +84,31 @@ namespace Geta.Optimizely.Extensions
         /// <returns></returns>
         public static IHtmlContent EditorHelpFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr)
         {
-            if (PageIsInEditMode(helper) == false)
+            if (!PageIsInEditMode(helper))
             {
                 return null;
             }
 
             var modelMetadata = CreatePropertyModelMetadata(helper, expr);
-
-            if (IsBlock(modelMetadata.ContainerType) && IsBlockPreviewTemplate(helper) == false)
+            if (IsBlock(modelMetadata.ContainerType) && !IsBlockPreviewTemplate(helper))
             {
                 return null;
             }
 
-            if (modelMetadata.AdditionalValues.ContainsKey(MetadataConstants.EditorHelp.HelpTextPropertyName))
+            if (!modelMetadata.AdditionalValues.ContainsKey(MetadataConstants.EditorHelp.HelpTextPropertyName))
             {
-                var hint = modelMetadata.AdditionalValues[MetadataConstants.EditorHelp.HelpTextPropertyName] as string;
-
-                if (string.IsNullOrWhiteSpace(hint) == false)
-                {
-                    var tag = GetHintsTag(hint);
-                    return new HtmlString(tag.ToString());
-                }
+                return null;
             }
 
-            return null;
+            var hint = modelMetadata.AdditionalValues[MetadataConstants.EditorHelp.HelpTextPropertyName] as string;
+            if (string.IsNullOrWhiteSpace(hint))
+            {
+                return null;
+            }
+
+            var tag = GetHintsTag(hint);
+            return new HtmlString(tag.ToString());
+
         }
 
         /// <summary>
@@ -129,12 +131,13 @@ namespace Geta.Optimizely.Extensions
         /// <returns></returns>
         public static IHtmlContent EditorHelpSummary<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr)
         {
-            if (PageIsInEditMode(helper) == false)
+            if (!PageIsInEditMode(helper))
             {
                 return null;
             }
 
             var modelMetadata = CreateContentModelMetadata(helper, expr);
+            // ReSharper disable once SuspiciousTypeConversion.Global
             return EditorHelpSummary(helper, modelMetadata as IContentData);
         }
 
@@ -147,7 +150,7 @@ namespace Geta.Optimizely.Extensions
         /// <returns></returns>
         public static IHtmlContent EditorHelpSummary<TModel>(this HtmlHelper<TModel> helper, IContentData content)
         {
-            if (PageIsInEditMode(helper) == false)
+            if (!PageIsInEditMode(helper))
             {
                 return null;
             }
@@ -160,48 +163,38 @@ namespace Geta.Optimizely.Extensions
             }
 
             IEnumerable<ModelMetadata> propertiesMeta = new EmptyModelMetadataProvider().GetMetadataForType(contentType).Properties;
-            IList<string> hints = new List<string>();
 
-            foreach (var propertyMetadata in propertiesMeta)
+            bool ShowInSummary(ModelMetadata metadata)
             {
-                object showInSummaryObj;
-
-                if (propertyMetadata.AdditionalValues.TryGetValue(MetadataConstants.EditorHelp.ShowInSummaryPropertyName, out showInSummaryObj) == false)
-                {
-                    continue;
-                }
-
-                var showInSummary = (bool?)showInSummaryObj;
-
-                if (showInSummary.GetValueOrDefault(true) == false)
-                {
-                    continue;
-                }
-
-                object hintObj;
-
-                if (propertyMetadata.AdditionalValues.TryGetValue(MetadataConstants.EditorHelp.HelpTextPropertyName, out hintObj) == false)
-                {
-                    continue;
-                }
-
-                var hint = hintObj as string;
-
-                if (string.IsNullOrWhiteSpace(hint))
-                {
-                    continue;
-                }
-
-                hints.Add(hint);
+                return metadata.AdditionalValues.TryGetValue(MetadataConstants.EditorHelp.ShowInSummaryPropertyName,
+                                                              out var showInSummaryObj)
+                       && ((bool?)showInSummaryObj).GetValueOrDefault(true);
             }
 
-            if (hints.Count > 0)
+            bool HasHelpText(ModelMetadata metadata)
             {
-                var tag = GetHintsTag(hints);
-                return new HtmlString(tag.ToString());
+                return metadata.AdditionalValues.TryGetValue(MetadataConstants.EditorHelp.HelpTextPropertyName,
+                                                              out var hintObj)
+                       && !string.IsNullOrEmpty(hintObj as string);
             }
 
-            return null;
+            string HelpText(ModelMetadata metadata)
+            {
+                return metadata.AdditionalValues[MetadataConstants.EditorHelp.HelpTextPropertyName] as string;
+            }
+
+            var hints = propertiesMeta
+                .Where(x => ShowInSummary(x) && HasHelpText(x))
+                .Select(HelpText)
+                .ToList();
+
+            if (hints.Count <= 0)
+            {
+                return null;
+            }
+
+            var tag = GetHintsTag(hints);
+            return new HtmlString(tag.ToString());
         }
 
         /// <summary>
@@ -278,7 +271,7 @@ namespace Geta.Optimizely.Extensions
         /// <returns></returns>
         public static IHtmlContent EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, IContentData content, bool includeBuiltInProperties = false)
         {
-            if (PageIsInEditMode(helper) == false)
+            if (!PageIsInEditMode(helper))
             {
                 return null;
             }
@@ -298,26 +291,22 @@ namespace Geta.Optimizely.Extensions
             {
                 object showInGroupObj;
 
-                if (propertyMetadata.ShowForEdit == false || propertyMetadata.AdditionalValues.TryGetValue(MetadataConstants.EditButton.ShowInGroupPropertyName, out showInGroupObj) == false)
+                if (!propertyMetadata.ShowForEdit || !propertyMetadata.AdditionalValues.TryGetValue(MetadataConstants.EditButton.ShowInGroupPropertyName, out showInGroupObj))
                 {
                     continue;
                 }
 
                 var showInGroup = (bool?)showInGroupObj;
 
-                if (showInGroup.GetValueOrDefault(true) == false)
+                if (!showInGroup.GetValueOrDefault(true))
                 {
                     continue;
                 }
 
-                object iconCssClassObj;
-
-                propertyMetadata.AdditionalValues.TryGetValue(MetadataConstants.EditButton.IconCssClassPropertyName, out iconCssClassObj);
+                propertyMetadata.AdditionalValues.TryGetValue(MetadataConstants.EditButton.IconCssClassPropertyName, out var iconCssClassObj);
                 var iconCssClass = iconCssClassObj as string;
 
-                bool triggerFullRefresh;
-
-                if (propertyMetadata.TryGetAdditionalValue(MetadataConstants.EditButton.TriggerFullRefreshPropertyName, out triggerFullRefresh) == false)
+                if (!propertyMetadata.TryGetAdditionalValue(MetadataConstants.EditButton.TriggerFullRefreshPropertyName, out bool triggerFullRefresh))
                 {
                     triggerFullRefresh = true;
                 }
@@ -484,7 +473,7 @@ namespace Geta.Optimizely.Extensions
 
         private static bool IsBlockAndNotInPreview<TModel>(this HtmlHelper<TModel> helper, Type contentType)
         {
-            return IsBlock(contentType) && IsBlockPreviewTemplate(helper) == false;
+            return IsBlock(contentType) && !IsBlockPreviewTemplate(helper);
         }
 
         private static bool PageIsInEditMode<TModel>(IHtmlHelper<TModel> helper)
