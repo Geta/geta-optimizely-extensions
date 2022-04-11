@@ -30,7 +30,10 @@ namespace Geta.Optimizely.Extensions
         /// <param name="helpText"></param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlContent EditorHelp<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr, string helpText)
+        public static IHtmlContent EditorHelp<TModel>(
+            this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, IContentData>> expr,
+            string helpText)
         {
             var modelMetadata = CreateContentModelMetadata(helper, expr);
             // ReSharper disable once SuspiciousTypeConversion.Global
@@ -82,7 +85,9 @@ namespace Geta.Optimizely.Extensions
         /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TProperty"></typeparam>
         /// <returns></returns>
-        public static IHtmlContent EditorHelpFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr)
+        public static IHtmlContent EditorHelpFor<TModel, TProperty>(
+            this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expr)
         {
             if (!PageIsInEditMode(helper))
             {
@@ -108,7 +113,6 @@ namespace Geta.Optimizely.Extensions
 
             var tag = GetHintsTag(hint);
             return new HtmlString(tag.ToString());
-
         }
 
         /// <summary>
@@ -129,7 +133,9 @@ namespace Geta.Optimizely.Extensions
         /// <param name="expr"></param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlContent EditorHelpSummary<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr)
+        public static IHtmlContent EditorHelpSummary<TModel>(
+            this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, IContentData>> expr)
         {
             if (!PageIsInEditMode(helper))
             {
@@ -167,14 +173,14 @@ namespace Geta.Optimizely.Extensions
             bool ShowInSummary(ModelMetadata metadata)
             {
                 return metadata.AdditionalValues.TryGetValue(MetadataConstants.EditorHelp.ShowInSummaryPropertyName,
-                                                              out var showInSummaryObj)
+                                                             out var showInSummaryObj)
                        && ((bool?)showInSummaryObj).GetValueOrDefault(true);
             }
 
             bool HasHelpText(ModelMetadata metadata)
             {
                 return metadata.AdditionalValues.TryGetValue(MetadataConstants.EditorHelp.HelpTextPropertyName,
-                                                              out var hintObj)
+                                                             out var hintObj)
                        && !string.IsNullOrEmpty(hintObj as string);
             }
 
@@ -205,7 +211,9 @@ namespace Geta.Optimizely.Extensions
         /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TProperty"></typeparam>
         /// <returns></returns>
-        public static IHtmlContent EditButtonFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr)
+        public static IHtmlContent EditButtonFor<TModel, TProperty>(
+            this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expr)
         {
             if (!PageIsInEditMode(helper))
             {
@@ -226,7 +234,11 @@ namespace Geta.Optimizely.Extensions
                 iconCssClass = modelMetadata.AdditionalValues[MetadataConstants.EditButton.IconCssClassPropertyName] as string;
             }
 
-            var tag = GetEditButtonTag(helper, expr, modelMetadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? modelMetadata.DisplayName ?? modelMetadata.PropertyName, iconCssClass);
+            var tag = GetEditButtonTag(helper,
+                                       expr,
+                                       modelMetadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string
+                                       ?? modelMetadata.DisplayName,
+                                       iconCssClass);
             return new HtmlString(tag);
         }
 
@@ -237,7 +249,8 @@ namespace Geta.Optimizely.Extensions
         /// <param name="includeBuiltInProperties">If true, also renders edit button for built-in Category property.</param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlContent EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, bool includeBuiltInProperties = false) where TModel : IContentData
+        public static IHtmlContent EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, bool includeBuiltInProperties = false)
+            where TModel : IContentData
         {
             return EditButtonsGroup(helper, helper.ViewData.Model, includeBuiltInProperties);
         }
@@ -250,7 +263,10 @@ namespace Geta.Optimizely.Extensions
         /// <param name="includeBuiltInProperties">If true, also renders edit button for built-in Category property.</param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlContent EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr, bool includeBuiltInProperties = false)
+        public static IHtmlContent EditButtonsGroup<TModel>(
+            this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, IContentData>> expr,
+            bool includeBuiltInProperties = false)
         {
             if (!PageIsInEditMode(helper))
             {
@@ -270,7 +286,10 @@ namespace Geta.Optimizely.Extensions
         /// <param name="includeBuiltInProperties">If true, also renders edit button for built-in Category property.</param>
         /// <typeparam name="TModel"></typeparam>
         /// <returns></returns>
-        public static IHtmlContent EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, IContentData content, bool includeBuiltInProperties = false)
+        public static IHtmlContent EditButtonsGroup<TModel>(
+            this HtmlHelper<TModel> helper,
+            IContentData content,
+            bool includeBuiltInProperties = false)
         {
             if (!PageIsInEditMode(helper))
             {
@@ -317,62 +336,64 @@ namespace Geta.Optimizely.Extensions
                 container.InnerHtml.Append(iconCssDiv);
             }
 
-            return new HtmlString(container.ToString() + helper.FullRefreshPropertiesMetaData(fullRefreshPropertyNames.ToArray()));
-
+            return new HtmlString(container.ToString() +
+                                  helper.FullRefreshPropertiesMetaData(fullRefreshPropertyNames.ToArray()));
         }
 
         private static void IncludeBuiltinProperties(
             IContentData content,
             bool includeBuiltInProperties,
-            List<string> iconCssDivs,
-            List<string> fullRefreshPropertyNames)
+            ICollection<string> iconCssDivs,
+            ICollection<string> fullRefreshPropertyNames)
         {
-            if (includeBuiltInProperties)
+            if (!includeBuiltInProperties)
             {
-                if (content is ICategorizable)
-                {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("Category",
-                                                            LocalizationService.Current.GetString(
-                                                                "/contenttypes/icontentdata/properties/icategorizable_category/caption"),
-                                                            null));
-                    fullRefreshPropertyNames.Add("icategorizable_category");
-                }
+                return;
+            }
 
-                if (content is PageData)
-                {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("PageExternalURL",
-                                                            LocalizationService.Current.GetString(
-                                                                "/contenttypes/icontentdata/properties/pageexternalurl/caption"),
-                                                            null));
-                    iconCssDivs.Add(GetSpecialEditButtonTag("PageVisibleInMenu",
-                                                            LocalizationService.Current.GetString(
-                                                                "/contenttypes/icontentdata/properties/pagevisibleinmenu/caption"),
-                                                            null));
-                }
+            if (content is ICategorizable)
+            {
+                iconCssDivs.Add(GetSpecialEditButtonTag("Category",
+                                                        LocalizationService.Current.GetString(
+                                                            "/contenttypes/icontentdata/properties/icategorizable_category/caption"),
+                                                        null));
+                fullRefreshPropertyNames.Add("icategorizable_category");
+            }
 
-                if (content is IRoutable)
-                {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("iroutable_routesegment",
-                                                            LocalizationService.Current.GetString(
-                                                                "/contenttypes/icontentdata/properties/pageurlsegment/caption"),
-                                                            null));
-                }
+            if (content is PageData)
+            {
+                iconCssDivs.Add(GetSpecialEditButtonTag("PageExternalURL",
+                                                        LocalizationService.Current.GetString(
+                                                            "/contenttypes/icontentdata/properties/pageexternalurl/caption"),
+                                                        null));
+                iconCssDivs.Add(GetSpecialEditButtonTag("PageVisibleInMenu",
+                                                        LocalizationService.Current.GetString(
+                                                            "/contenttypes/icontentdata/properties/pagevisibleinmenu/caption"),
+                                                        null));
+            }
 
-                if (content is IVersionable)
-                {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("iversionable_startpublish",
-                                                            LocalizationService.Current.GetString(
-                                                                "/contenttypes/icontentdata/properties/iversionable_startpublish/caption"),
-                                                            null));
-                }
+            if (content is IRoutable)
+            {
+                iconCssDivs.Add(GetSpecialEditButtonTag("iroutable_routesegment",
+                                                        LocalizationService.Current.GetString(
+                                                            "/contenttypes/icontentdata/properties/pageurlsegment/caption"),
+                                                        null));
+            }
 
-                if (content is IChangeTrackable)
-                {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("ichangetrackable_setchangedonpublish",
-                                                            LocalizationService.Current.GetString(
-                                                                "/contenttypes/icontentdata/properties/ichangetrackable_setchangedonpublish/caption"),
-                                                            null));
-                }
+            if (content is IVersionable)
+            {
+                iconCssDivs.Add(GetSpecialEditButtonTag("iversionable_startpublish",
+                                                        LocalizationService.Current.GetString(
+                                                            "/contenttypes/icontentdata/properties/iversionable_startpublish/caption"),
+                                                        null));
+            }
+
+            if (content is IChangeTrackable)
+            {
+                iconCssDivs.Add(GetSpecialEditButtonTag("ichangetrackable_setchangedonpublish",
+                                                        LocalizationService.Current.GetString(
+                                                            "/contenttypes/icontentdata/properties/ichangetrackable_setchangedonpublish/caption"),
+                                                        null));
             }
         }
 
@@ -380,13 +401,20 @@ namespace Geta.Optimizely.Extensions
         {
             metadata.AdditionalValues.TryGetValue(MetadataConstants.EditButton.IconCssClassPropertyName, out var iconCssClassObj);
             var iconCssClass = iconCssClassObj as string;
-            return GetEditButtonTag(helper, metadata.PropertyName, metadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? metadata.DisplayName ?? metadata.PropertyName, iconCssClass);
+            return GetEditButtonTag(helper,
+                                    metadata.PropertyName,
+                                    metadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ??
+                                    metadata.DisplayName ?? metadata.PropertyName,
+                                    iconCssClass);
         }
 
-        #region Private methods
-        private static string GetEditButtonTag<TModel, TProperty>(HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr, string displayName, string iconCssClass)
+        private static string GetEditButtonTag<TModel, TProperty>(
+            HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expr,
+            string displayName,
+            string iconCssClass)
         {
-            var withIconCssClass = !string.IsNullOrWhiteSpace(iconCssClass) 
+            var withIconCssClass = !string.IsNullOrWhiteSpace(iconCssClass)
                 ? "with-icon "
                 : null;
 
@@ -401,7 +429,11 @@ namespace Geta.Optimizely.Extensions
             return html.ToString();
         }
 
-        private static string GetEditButtonTag<TModel>(HtmlHelper<TModel> helper, string propertyName, string displayName, string iconCssClass)
+        private static string GetEditButtonTag<TModel>(
+            HtmlHelper<TModel> helper,
+            string propertyName,
+            string displayName,
+            string iconCssClass)
         {
             var withIconCssClass = !string.IsNullOrWhiteSpace(iconCssClass)
                 ? "with-icon "
@@ -479,14 +511,16 @@ namespace Geta.Optimizely.Extensions
             return mode == ContextMode.Edit;
         }
 
-        private static ModelMetadata CreateContentModelMetadata<TModel>(HtmlHelper<TModel> helper,
+        private static ModelMetadata CreateContentModelMetadata<TModel>(
+            HtmlHelper<TModel> helper,
             Expression<Func<TModel, IContentData>> expr)
         {
             var expressionProvider = GetModelExpressionProvider(helper);
             return expressionProvider?.CreateModelExpression(helper.ViewData, expr).Metadata;
         }
 
-        private static ModelMetadata CreatePropertyModelMetadata<TModel, TProperty>(HtmlHelper<TModel> helper,
+        private static ModelMetadata CreatePropertyModelMetadata<TModel, TProperty>(
+            HtmlHelper<TModel> helper,
             Expression<Func<TModel, TProperty>> expr)
         {
             var expressionProvider = GetModelExpressionProvider(helper);
@@ -498,6 +532,5 @@ namespace Geta.Optimizely.Extensions
             return helper.ViewContext.HttpContext.RequestServices
                 .GetService(typeof(ModelExpressionProvider)) as ModelExpressionProvider;
         }
-        #endregion
     }
 }
