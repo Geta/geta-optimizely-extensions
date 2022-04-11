@@ -162,7 +162,7 @@ namespace Geta.Optimizely.Extensions
                 return null;
             }
 
-            IEnumerable<ModelMetadata> propertiesMeta = new EmptyModelMetadataProvider().GetMetadataForType(contentType).Properties;
+            var propertiesMeta = new EmptyModelMetadataProvider().GetMetadataForType(contentType).Properties;
 
             bool ShowInSummary(ModelMetadata metadata)
             {
@@ -207,7 +207,7 @@ namespace Geta.Optimizely.Extensions
         /// <returns></returns>
         public static IHtmlContent EditButtonFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr)
         {
-            if (PageIsInEditMode(helper) == false)
+            if (!PageIsInEditMode(helper))
             {
                 return null;
             }
@@ -226,7 +226,7 @@ namespace Geta.Optimizely.Extensions
                 iconCssClass = modelMetadata.AdditionalValues[MetadataConstants.EditButton.IconCssClassPropertyName] as string;
             }
 
-            string tag = GetEditButtonTag(helper, expr, modelMetadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? modelMetadata.DisplayName ?? modelMetadata.PropertyName, iconCssClass);
+            var tag = GetEditButtonTag(helper, expr, modelMetadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? modelMetadata.DisplayName ?? modelMetadata.PropertyName, iconCssClass);
             return new HtmlString(tag);
         }
 
@@ -252,12 +252,13 @@ namespace Geta.Optimizely.Extensions
         /// <returns></returns>
         public static IHtmlContent EditButtonsGroup<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IContentData>> expr, bool includeBuiltInProperties = false)
         {
-            if (PageIsInEditMode(helper) == false)
+            if (!PageIsInEditMode(helper))
             {
                 return null;
             }
 
             var modelMetadata = CreateContentModelMetadata(helper, expr);
+            // ReSharper disable once SuspiciousTypeConversion.Global
             return EditButtonsGroup(helper, modelMetadata as IContentData, includeBuiltInProperties);
         }
 
@@ -283,108 +284,109 @@ namespace Geta.Optimizely.Extensions
                 return null;
             }
 
-            IEnumerable<ModelMetadata> propertiesMeta = new EmptyModelMetadataProvider().GetMetadataForType(contentType).Properties;
-            IList<string> iconCssDivs = new List<string>();
-            IList<string> fullRefreshPropertyNames = new List<string>();
+            var propertiesMeta = new EmptyModelMetadataProvider().GetMetadataForType(contentType).Properties;
 
-            foreach (var propertyMetadata in propertiesMeta)
+            bool ShowInGroup(ModelMetadata metadata)
             {
-                object showInGroupObj;
-
-                if (!propertyMetadata.ShowForEdit || !propertyMetadata.AdditionalValues.TryGetValue(MetadataConstants.EditButton.ShowInGroupPropertyName, out showInGroupObj))
-                {
-                    continue;
-                }
-
-                var showInGroup = (bool?)showInGroupObj;
-
-                if (!showInGroup.GetValueOrDefault(true))
-                {
-                    continue;
-                }
-
-                propertyMetadata.AdditionalValues.TryGetValue(MetadataConstants.EditButton.IconCssClassPropertyName, out var iconCssClassObj);
-                var iconCssClass = iconCssClassObj as string;
-
-                if (!propertyMetadata.TryGetAdditionalValue(MetadataConstants.EditButton.TriggerFullRefreshPropertyName, out bool triggerFullRefresh))
-                {
-                    triggerFullRefresh = true;
-                }
-
-                if (triggerFullRefresh)
-                {
-                    fullRefreshPropertyNames.Add(propertyMetadata.PropertyName);
-                }
-
-                var editButtonHtml = GetEditButtonTag(helper, propertyMetadata.PropertyName, propertyMetadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? propertyMetadata.DisplayName ?? propertyMetadata.PropertyName, iconCssClass);
-
-                iconCssDivs.Add(editButtonHtml);
+                return metadata.AdditionalValues.TryGetValue(MetadataConstants.EditButton.ShowInGroupPropertyName,
+                                                             out var showInGroupObj)
+                       && ((bool?)showInGroupObj).GetValueOrDefault(true);
             }
 
+            bool CanTriggerFullRefresh(ModelMetadata metadata)
+            {
+                return metadata.TryGetAdditionalValue(MetadataConstants.EditButton.TriggerFullRefreshPropertyName, out bool _);
+            }
+
+            var visibleMeta = propertiesMeta.Where(x => x.ShowForEdit && ShowInGroup(x)).ToList();
+            var iconCssDivs = visibleMeta.Select(x => GetEditButtonTag(helper, x)).ToList();
+            var fullRefreshPropertyNames = visibleMeta.Where(CanTriggerFullRefresh).Select(x => x.PropertyName).ToList();
+
+            IncludeBuiltinProperties(content, includeBuiltInProperties, iconCssDivs, fullRefreshPropertyNames);
+
+            if (iconCssDivs.Count <= 0)
+            {
+                return null;
+            }
+
+            var container = new TagBuilder("div");
+            container.AddCssClass("editor-buttons");
+
+            foreach (var iconCssDiv in iconCssDivs)
+            {
+                container.InnerHtml.Append(iconCssDiv);
+            }
+
+            return new HtmlString(container.ToString() + helper.FullRefreshPropertiesMetaData(fullRefreshPropertyNames.ToArray()));
+
+        }
+
+        private static void IncludeBuiltinProperties(
+            IContentData content,
+            bool includeBuiltInProperties,
+            List<string> iconCssDivs,
+            List<string> fullRefreshPropertyNames)
+        {
             if (includeBuiltInProperties)
             {
-                var categorizableContent = content as ICategorizable;
-
-                if (categorizableContent != null)
+                if (content is ICategorizable)
                 {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("Category", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/icategorizable_category/caption"), null));
+                    iconCssDivs.Add(GetSpecialEditButtonTag("Category",
+                                                            LocalizationService.Current.GetString(
+                                                                "/contenttypes/icontentdata/properties/icategorizable_category/caption"),
+                                                            null));
                     fullRefreshPropertyNames.Add("icategorizable_category");
                 }
 
-                var pageContent = content as PageData;
-
-                if (pageContent != null)
+                if (content is PageData)
                 {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("PageExternalURL", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/pageexternalurl/caption"), null));
+                    iconCssDivs.Add(GetSpecialEditButtonTag("PageExternalURL",
+                                                            LocalizationService.Current.GetString(
+                                                                "/contenttypes/icontentdata/properties/pageexternalurl/caption"),
+                                                            null));
+                    iconCssDivs.Add(GetSpecialEditButtonTag("PageVisibleInMenu",
+                                                            LocalizationService.Current.GetString(
+                                                                "/contenttypes/icontentdata/properties/pagevisibleinmenu/caption"),
+                                                            null));
                 }
 
-                var routable = content as IRoutable;
-
-                if (routable != null)
+                if (content is IRoutable)
                 {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("iroutable_routesegment", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/pageurlsegment/caption"), null));
+                    iconCssDivs.Add(GetSpecialEditButtonTag("iroutable_routesegment",
+                                                            LocalizationService.Current.GetString(
+                                                                "/contenttypes/icontentdata/properties/pageurlsegment/caption"),
+                                                            null));
                 }
 
-                if (pageContent != null)
+                if (content is IVersionable)
                 {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("PageVisibleInMenu", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/pagevisibleinmenu/caption"), null));
+                    iconCssDivs.Add(GetSpecialEditButtonTag("iversionable_startpublish",
+                                                            LocalizationService.Current.GetString(
+                                                                "/contenttypes/icontentdata/properties/iversionable_startpublish/caption"),
+                                                            null));
                 }
 
-                var versionableContent = content as IVersionable;
-
-                if (versionableContent != null)
+                if (content is IChangeTrackable)
                 {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("iversionable_startpublish", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/iversionable_startpublish/caption"), null));
-                }
-
-                var changeTrackableContent = content as IChangeTrackable;
-
-                if (changeTrackableContent != null)
-                {
-                    iconCssDivs.Add(GetSpecialEditButtonTag("ichangetrackable_setchangedonpublish", LocalizationService.Current.GetString("/contenttypes/icontentdata/properties/ichangetrackable_setchangedonpublish/caption"), null));
+                    iconCssDivs.Add(GetSpecialEditButtonTag("ichangetrackable_setchangedonpublish",
+                                                            LocalizationService.Current.GetString(
+                                                                "/contenttypes/icontentdata/properties/ichangetrackable_setchangedonpublish/caption"),
+                                                            null));
                 }
             }
+        }
 
-            if (iconCssDivs.Count > 0)
-            {
-                var container = new TagBuilder("div");
-                container.AddCssClass("editor-buttons");
-
-                foreach (var iconCssDiv in iconCssDivs)
-                {
-                    container.InnerHtml.Append(iconCssDiv);
-                }
-
-                return new HtmlString(container.ToString() + helper.FullRefreshPropertiesMetaData(fullRefreshPropertyNames.ToArray()));
-            }
-
-            return null;
+        private static string GetEditButtonTag<TModel>(HtmlHelper<TModel> helper, ModelMetadata metadata)
+        {
+            metadata.AdditionalValues.TryGetValue(MetadataConstants.EditButton.IconCssClassPropertyName, out var iconCssClassObj);
+            var iconCssClass = iconCssClassObj as string;
+            return GetEditButtonTag(helper, metadata.PropertyName, metadata.AdditionalValues[MetadataConstants.EditButton.ButtonLabel] as string ?? metadata.DisplayName ?? metadata.PropertyName, iconCssClass);
         }
 
         #region Private methods
         private static string GetEditButtonTag<TModel, TProperty>(HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expr, string displayName, string iconCssClass)
         {
-            string withIconCssClass = string.IsNullOrWhiteSpace(iconCssClass) == false
+            var withIconCssClass = !string.IsNullOrWhiteSpace(iconCssClass) 
                 ? "with-icon "
                 : null;
 
@@ -401,7 +403,7 @@ namespace Geta.Optimizely.Extensions
 
         private static string GetEditButtonTag<TModel>(HtmlHelper<TModel> helper, string propertyName, string displayName, string iconCssClass)
         {
-            string withIconCssClass = string.IsNullOrWhiteSpace(iconCssClass) == false
+            var withIconCssClass = !string.IsNullOrWhiteSpace(iconCssClass)
                 ? "with-icon "
                 : null;
 
@@ -418,7 +420,7 @@ namespace Geta.Optimizely.Extensions
 
         private static string GetSpecialEditButtonTag(string propertyName, string displayName, string iconCssClass)
         {
-            string withIconCssClass = string.IsNullOrWhiteSpace(iconCssClass) == false
+            var withIconCssClass = !string.IsNullOrWhiteSpace(iconCssClass)
                 ? "with-icon "
                 : null;
 
@@ -449,21 +451,16 @@ namespace Geta.Optimizely.Extensions
                 var li = new TagBuilder("li");
                 li.InnerHtml.Append(hint);
 
-                ul.InnerHtml.Append(li.ToString());
+                ul.InnerHtml.Append(li.ToString() ?? string.Empty);
             }
 
-            tag.InnerHtml.Append(ul.ToString());
+            tag.InnerHtml.Append(ul.ToString() ?? string.Empty);
             return tag;
         }
 
         private static bool IsBlock(Type contentType)
         {
-            if (contentType == null)
-            {
-                return false;
-            }
-
-            return typeof(BlockData).IsAssignableFrom(contentType);
+            return contentType != null && typeof(BlockData).IsAssignableFrom(contentType);
         }
 
         private static bool IsBlockPreviewTemplate<TModel>(HtmlHelper<TModel> helper)
