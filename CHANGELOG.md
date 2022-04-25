@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2]
+
+- Small refactorings
+
 ## [1.0.1]
 
 - Fix: Only remove default port when adding host [#18](https://github.com/Geta/geta-optimizely-extensions/pull/18)
