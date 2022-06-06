@@ -18,8 +18,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.0.3" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.0.3" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.6.0" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.7.0" />
     <PackageReference Include="Geta.Net.Extensions" Version="3.0.0" />
   </ItemGroup>
 
