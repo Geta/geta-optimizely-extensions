@@ -138,6 +138,17 @@ If you need to check if the CategoryList has that category you can use the Conta
 
     bool hasBikes = CurrentPage.Category.Contains("bikes");
 
+### Enumerable extensions
+
+You can easily check if content references are part of a list using `MemberOf`, `MemberOfAny` or `MemberOfAll`, for example to check if a page has any of the supplied categories:
+
+```
+IEnumerable<ContentReference> categories = ...;
+var pagesWithCat = _contentLoader
+    .GetChildren<ICategorizableContent>(contentLink, loaderOptions)
+    .Where(x => x.Categories.MemberOfAny(categories));
+```
+
 ### External/friendly URL
 
 This can be useful when used together with sharing widgets.
