@@ -217,5 +217,51 @@ You can also render a help summary for all properties marked with the EditorHelp
 
 Please note that the buttons and help texts are not styled with any CSS in this package. You will have to do that yourself.
 
+## How to run locally
+
+Install required dependencies [click](https://github.com/Geta/geta-packages-foundation-sandbox#prerequisites)
+
+### Option 1: Aspire Project (Recommended)
+1. **Checkout repository with submodule**
+   ```bash
+   git clone https://github.com/Geta/geta-optimizely-extensions
+   cd geta-optimizely-extensions
+   git submodule update --init
+
+2. **Run application**
+   ```bash
+   Turn on docker
+   cd sandbox/geta-packages-foundation-sandbox/src/Foundation.AppHost
+   dotnet run --project Foundation.AppHost
+
+3. **Access Dashboard**
+   ```
+   Open the Aspire dashboard and navigate from the dashboard to https://localhost:5001/
+
+### Option 2: Regular project
+1. **Checkout repository**
+   ```bash
+   git clone https://github.com/Geta/geta-optimizely-extensions
+   cd geta-optimizely-extensions
+   git submodule update --init
+2. **Setup Environment**
+   ```bash
+    cd sandbox/geta-packages-foundation-sandbox
+    # Windows
+    setup.cmd
+    
+    # macOS/Linux
+    chmod +x setup.sh
+    ./setup.sh
+3. **Run application**
+   ```bash
+   dotnet run --project ./src/Geta.Optimizely.Extensions/Geta.Optimizely.Extensions.Web.csproj
+---
+
+
+CMS username: admin@example.com
+
+Password: Episerver123!
+
 ## Package maintainer
 https://github.com/marisks
