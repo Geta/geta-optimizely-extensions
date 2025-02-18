@@ -218,7 +218,7 @@ Please note that the buttons and help texts are not styled with any CSS in this 
 
 ## How to run locally
 
-Install required dependencies [click](https://github.com/Geta/geta-packages-foundation-sandbox#prerequisites)
+Install required dependencies [click](https://github.com/Geta/geta-foundation-core#%EF%B8%8F-prerequisites)
 
 ### Option 1: Aspire Project (Recommended)
 1. **Checkout repository with submodule**
@@ -230,7 +230,7 @@ Install required dependencies [click](https://github.com/Geta/geta-packages-foun
 2. **Run application**
    ```bash
    Turn on docker
-   cd sandbox/geta-packages-foundation-sandbox/src/Foundation.AppHost
+   cd sub/geta-foundation-core/src/Foundation.AppHost
    dotnet run --project Foundation.AppHost
 
 3. **Access Dashboard**
@@ -245,7 +245,7 @@ Install required dependencies [click](https://github.com/Geta/geta-packages-foun
    git submodule update --init
 2. **Setup Environment**
    ```bash
-    cd sandbox/geta-packages-foundation-sandbox
+    cd sub/geta-foundation-core
     # Windows
     setup.cmd
     
