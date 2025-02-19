@@ -216,47 +216,53 @@ You can also render a help summary for all properties marked with the EditorHelp
 
 Please note that the buttons and help texts are not styled with any CSS in this package. You will have to do that yourself.
 
-## How to run locally
+## 🏁 Getting Started
 
-Install required dependencies [click](https://github.com/Geta/geta-foundation-core#%EF%B8%8F-prerequisites)
+### 📦 Prerequisites
 
-### Option 1: Aspire Project (Recommended)
-1. **Checkout repository with submodule**
-   ```bash
-   git clone https://github.com/Geta/geta-optimizely-extensions
-   cd geta-optimizely-extensions
-   git submodule update --init
+Ensure your system is properly configured to meet all prerequisites for Geta Foundation Core listed [here](https://github.com/Geta/geta-foundation-core#%EF%B8%8F-prerequisites)
 
-2. **Run application**
-   ```bash
-   Turn on docker
-   cd sub/geta-foundation-core/src/Foundation.AppHost
-   dotnet run --project Foundation.AppHost
+### 🐑 Cloning the repository
 
-3. **Access Dashboard**
-   ```
-   Open the Aspire dashboard and navigate from the dashboard to https://localhost:5001/
+```bash
+    git clone https://github.com/Geta/geta-optimizely-extensions.git
+    cd geta-optimizely-extensions
+    git submodule update --init
+```
 
-### Option 2: Regular project
-1. **Checkout repository**
-   ```bash
-   git clone https://github.com/Geta/geta-optimizely-extensions
-   cd geta-optimizely-extensions
-   git submodule update --init
-2. **Setup Environment**
-   ```bash
-    cd sub/geta-foundation-core
+### 🚀 Running with Aspire (Recommended)
+```bash
     # Windows
-    setup.cmd
-    
-    # macOS/Linux
-    chmod +x setup.sh
-    ./setup.sh
-3. **Run application**
-   ```bash
-   dotnet run --project ./src/Geta.Optimizely.Extensions/Geta.Optimizely.Extensions.Web.csproj
----
+    cd sub/geta-foundation-core/src/Foundation.AppHost
+    dotnet run
 
+    # Linux / MacOS
+    sudo env "PATH=$PATH" bash
+    chmod +x sub/geta-foundation-core/src/Foundation/docker/build-script/*.sh
+    cd sub/geta-foundation-core/src/Foundation.AppHost
+    dotnet run
+```
+
+### 🖥️ Running as Standalone
+```bash
+   # Windows
+   cd sub/geta-foundation-core
+   ./setup.cmd
+   cd ../../src/Geta.Optimizely.Extensions.Web
+   dotnet run
+
+   # Linux / MacOS
+   sudo env "PATH=$PATH" bash
+   cd sub/geta-foundation-core
+   chmod +x *.sh
+   ./setup.sh
+   cd ../../src/Geta.Optimizely.Extensions.Web
+   dotnet run
+```
+
+If you run into any issues, check the FAQ section [here](https://github.com/Geta/geta-foundation-web?tab=readme-ov-file#faq) 
+
+---
 
 CMS username: admin@example.com
 
