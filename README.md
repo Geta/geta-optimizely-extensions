@@ -1,7 +1,6 @@
 # Extensions and helpers library for Optimizely CMS
 
 ![Build](http://tc.geta.no/app/rest/builds/buildType:(id:Geta_Extensions_00ci),branch:master/statusIcon)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Geta_geta-optimizely-extensions&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Geta_geta-optimizely-extensions)
 [![Platform](https://img.shields.io/badge/Platform-.NET%205-blue.svg?style=flat)](https://msdn.microsoft.com/en-us/library/w0x726c2%28v=vs.110%29.aspx)
 [![Platform](https://img.shields.io/badge/Optimizely-%2012-orange.svg?style=flat)](http://world.episerver.com/cms/)
 
@@ -216,6 +215,58 @@ You can also render a help summary for all properties marked with the EditorHelp
 	@Html.EditorHelpSummary(m => m.CurrentPage) // If view model is page view model
 
 Please note that the buttons and help texts are not styled with any CSS in this package. You will have to do that yourself.
+
+## 🏁 Getting Started
+
+### 📦 Prerequisites
+
+Ensure your system is properly configured to meet all prerequisites for Geta Foundation Core listed [here](https://github.com/Geta/geta-foundation-core#%EF%B8%8F-prerequisites)
+
+### 🐑 Cloning the repository
+
+```bash
+    git clone https://github.com/Geta/geta-optimizely-extensions.git
+    cd geta-optimizely-extensions
+    git submodule update --init
+```
+
+### 🚀 Running with Aspire (Recommended)
+```bash
+    # Windows
+    cd sub/geta-foundation-core/src/Foundation.AppHost
+    dotnet run
+
+    # Linux / MacOS
+    sudo env "PATH=$PATH" bash
+    chmod +x sub/geta-foundation-core/src/Foundation/docker/build-script/*.sh
+    cd sub/geta-foundation-core/src/Foundation.AppHost
+    dotnet run
+```
+
+### 🖥️ Running as Standalone
+```bash
+   # Windows
+   cd sub/geta-foundation-core
+   ./setup.cmd
+   cd ../../src/Geta.Optimizely.Extensions.Web
+   dotnet run
+
+   # Linux / MacOS
+   sudo env "PATH=$PATH" bash
+   cd sub/geta-foundation-core
+   chmod +x *.sh
+   ./setup.sh
+   cd ../../src/Geta.Optimizely.Extensions.Web
+   dotnet run
+```
+
+If you run into any issues, check the FAQ section [here](https://github.com/Geta/geta-foundation-web?tab=readme-ov-file#faq) 
+
+---
+
+CMS username: admin@example.com
+
+Password: Episerver123!
 
 ## Package maintainer
 https://github.com/marisks

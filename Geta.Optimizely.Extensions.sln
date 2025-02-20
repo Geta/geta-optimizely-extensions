@@ -7,11 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geta.Optimizely.Extensions.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geta.Optimizely.Extensions", "src\Geta.Optimizely.Extensions\Geta.Optimizely.Extensions.csproj", "{03E93F7D-AC51-47DA-8088-71F94ECF1F56}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sandbox", "Sandbox", "{3634BF87-FE65-44EA-A506-6EA56F8C2355}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{2007B9FB-FAEB-4946-872D-5FBAAD50660E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlloyMvcTemplates", "sandbox\Alloy\AlloyMvcTemplates.csproj", "{EBCE0F50-EEAD-4A19-B113-AC5046458394}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3C308822-F98E-45E1-8B7C-533583C15F9D}"
 	ProjectSection(SolutionItems) = preProject
@@ -20,6 +16,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NuGet.config = NuGet.config
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geta.Optimizely.Extensions.Web", "src\Geta.Optimizely.Extensions.Web\Geta.Optimizely.Extensions.Web.csproj", "{AADC2EB7-693F-4AB5-9374-2ADA5F41B153}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "geta-foundation-core", "geta-foundation-core", "{A60DB58E-F806-4C5E-9B50-8A8AE26F7DE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation", "sub\geta-foundation-core\src\Foundation\Foundation.csproj", "{2F2787A0-0953-48E9-BA41-AE8252DD2F29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.AppHost", "sub\geta-foundation-core\src\Foundation.AppHost\Foundation.AppHost.csproj", "{D584C6E6-18CC-4B45-83F6-81A4268F5920}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foundation.AppHost.ServiceDefaults", "sub\geta-foundation-core\src\Foundation.AppHost.ServiceDefaults\Foundation.AppHost.ServiceDefaults.csproj", "{2E109961-9728-4BA9-9517-718F31505111}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,17 +41,31 @@ Global
 		{03E93F7D-AC51-47DA-8088-71F94ECF1F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03E93F7D-AC51-47DA-8088-71F94ECF1F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03E93F7D-AC51-47DA-8088-71F94ECF1F56}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EBCE0F50-EEAD-4A19-B113-AC5046458394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBCE0F50-EEAD-4A19-B113-AC5046458394}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBCE0F50-EEAD-4A19-B113-AC5046458394}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBCE0F50-EEAD-4A19-B113-AC5046458394}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AADC2EB7-693F-4AB5-9374-2ADA5F41B153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AADC2EB7-693F-4AB5-9374-2ADA5F41B153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AADC2EB7-693F-4AB5-9374-2ADA5F41B153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AADC2EB7-693F-4AB5-9374-2ADA5F41B153}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F2787A0-0953-48E9-BA41-AE8252DD2F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F2787A0-0953-48E9-BA41-AE8252DD2F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F2787A0-0953-48E9-BA41-AE8252DD2F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F2787A0-0953-48E9-BA41-AE8252DD2F29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D584C6E6-18CC-4B45-83F6-81A4268F5920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D584C6E6-18CC-4B45-83F6-81A4268F5920}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D584C6E6-18CC-4B45-83F6-81A4268F5920}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D584C6E6-18CC-4B45-83F6-81A4268F5920}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E109961-9728-4BA9-9517-718F31505111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E109961-9728-4BA9-9517-718F31505111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E109961-9728-4BA9-9517-718F31505111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E109961-9728-4BA9-9517-718F31505111}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{892880C9-E837-403E-B043-42D1425DD6B7} = {2007B9FB-FAEB-4946-872D-5FBAAD50660E}
-		{EBCE0F50-EEAD-4A19-B113-AC5046458394} = {3634BF87-FE65-44EA-A506-6EA56F8C2355}
+		{2F2787A0-0953-48E9-BA41-AE8252DD2F29} = {A60DB58E-F806-4C5E-9B50-8A8AE26F7DE9}
+		{D584C6E6-18CC-4B45-83F6-81A4268F5920} = {A60DB58E-F806-4C5E-9B50-8A8AE26F7DE9}
+		{2E109961-9728-4BA9-9517-718F31505111} = {A60DB58E-F806-4C5E-9B50-8A8AE26F7DE9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {85FD3D50-7D7A-4211-B18C-6A93B1BC9258}
