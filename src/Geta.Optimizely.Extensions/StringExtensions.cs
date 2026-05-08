@@ -1,6 +1,6 @@
-﻿using EPiServer.Core.Html;
-using Geta.Net.Extensions;
+﻿using Geta.Net.Extensions;
 using System;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 
 namespace Geta.Optimizely.Extensions
@@ -18,9 +18,13 @@ namespace Geta.Optimizely.Extensions
         /// <returns>A string with text.</returns>
         public static string StripHtml(this string htmlText, int maxLength = 0)
         {
-            return string.IsNullOrWhiteSpace(htmlText)
-                ? htmlText
-                : TextIndexer.StripHtml(htmlText, maxLength);
+            if (string.IsNullOrWhiteSpace(htmlText))
+                return htmlText;
+
+            var stripped = Regex.Replace(htmlText, "<[^>]*>", string.Empty);
+            return maxLength > 0 && stripped.Length > maxLength
+                ? stripped[..maxLength]
+                : stripped;
         }
 
         /// <summary>

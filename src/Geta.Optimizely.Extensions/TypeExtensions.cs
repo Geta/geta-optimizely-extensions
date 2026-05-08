@@ -16,7 +16,7 @@ namespace Geta.Optimizely.Extensions
         /// <returns>PageType instance if found.</returns>
         public static PageType GetPageType(this Type pageType)
         {
-            return ServiceLocator.Current.GetInstance<IContentTypeRepository<PageType>>().Load(pageType);
+            return ServiceLocator.Current.GetInstance<IContentTypeRepository>().Load(pageType) as PageType;
         }
     }
 }

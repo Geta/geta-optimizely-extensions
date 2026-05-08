@@ -1,31 +1,22 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Geta.Optimizely.Extensions
 {
-    /// <summary>
-    /// Extension methods for working with JSON data
-    /// </summary>
     public static class JsonExtensions
     {
-        /// <summary>
-        /// Convert object to JSON
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">Object to convert</param>
-        /// <param name="includeNull">Include null property values</param>
-        /// <returns></returns>
         public static string ToJson<T>(this T obj, bool includeNull = true)
         {
-            var settings = new JsonSerializerSettings
+            var options = new JsonSerializerOptions
             {
-                ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                Converters = new JsonConverter[] { new StringEnumConverter() },
-                NullValueHandling = includeNull ? NullValueHandling.Include : NullValueHandling.Ignore
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = includeNull
+                    ? JsonIgnoreCondition.Never
+                    : JsonIgnoreCondition.WhenWritingNull,
+                Converters = { new JsonStringEnumConverter() }
             };
 
-            return JsonConvert.SerializeObject(obj, settings);
+            return JsonSerializer.Serialize(obj, options);
         }
     }
 }

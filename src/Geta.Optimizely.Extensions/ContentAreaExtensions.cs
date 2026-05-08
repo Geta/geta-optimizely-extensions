@@ -15,7 +15,7 @@ namespace Geta.Optimizely.Extensions
         /// <returns>Returns true if content area has content and false when not.</returns>
         public static bool HasContent(this ContentArea contentArea)
         {
-            return contentArea?.FilteredItems != null && contentArea.FilteredItems.Any();
+            return contentArea?.Items != null && contentArea.Items.Any();
         }
     }
 }
