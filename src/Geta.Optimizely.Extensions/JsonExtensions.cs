@@ -5,18 +5,23 @@ namespace Geta.Optimizely.Extensions
 {
     public static class JsonExtensions
     {
+        private static readonly JsonSerializerOptions OptionsWithNulls = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+            Converters = { new JsonStringEnumConverter() }
+        };
+
+        private static readonly JsonSerializerOptions OptionsWithoutNulls = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Converters = { new JsonStringEnumConverter() }
+        };
+
         public static string ToJson<T>(this T obj, bool includeNull = true)
         {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                DefaultIgnoreCondition = includeNull
-                    ? JsonIgnoreCondition.Never
-                    : JsonIgnoreCondition.WhenWritingNull,
-                Converters = { new JsonStringEnumConverter() }
-            };
-
-            return JsonSerializer.Serialize(obj, options);
+            return JsonSerializer.Serialize(obj, includeNull ? OptionsWithNulls : OptionsWithoutNulls);
         }
     }
 }
