@@ -1,5 +1,4 @@
-﻿using Castle.Core.Internal;
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Mvc.Html;
@@ -30,7 +29,7 @@ namespace Geta.Optimizely.Extensions
         public static IHtmlContent PageLinkUrl(this IUrlHelper urlHelper, PageReference pageLink, string defaultValue)
         {
             var url = urlHelper.PageLinkUrl(pageLink) as HtmlString;
-            return url == null || url.Value.IsNullOrEmpty() ? new HtmlString(defaultValue) : url;
+            return url == null || string.IsNullOrEmpty(url.Value) ? new HtmlString(defaultValue) : url;
         }
 
         /// <summary>

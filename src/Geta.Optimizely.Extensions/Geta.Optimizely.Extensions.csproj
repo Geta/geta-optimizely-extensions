@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <PackageId>Geta.Optimizely.Extensions</PackageId>
     <Title>Extensions and helpers library for Optimizely CMS</Title>
     <Authors>Geta Digital</Authors>
@@ -18,9 +18,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.6.0" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.7.0" />
-    <PackageReference Include="Geta.Net.Extensions" Version="3.0.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="13.1.0" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="13.1.0" />
+    <PackageReference Include="Geta.Net.Extensions" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>
