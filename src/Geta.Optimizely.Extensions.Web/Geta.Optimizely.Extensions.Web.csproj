@@ -13,7 +13,7 @@
       <ProjectReference Include="..\Geta.Optimizely.Extensions\Geta.Optimizely.Extensions.csproj" />
     </ItemGroup>
 
-  <Import Project="..\..\sub\geta-foundation-core\src\Foundation\modules\ModulesInclude.proj" />
+  <Import Project="..\..\sub\geta-foundation-core\src\Foundation\modules\ModulesInclude.proj" Condition="Exists('..\..\sub\geta-foundation-core\src\Foundation\modules\ModulesInclude.proj')" />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.7" />
