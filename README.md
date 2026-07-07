@@ -1,6 +1,6 @@
 # Extensions and helpers library for Optimizely CMS
 
-![Build](http://tc.geta.no/app/rest/builds/buildType:(id:Geta_Extensions_00ci),branch:master/statusIcon)
+![Build](http://teamcity.getatools.ai/app/rest/builds/buildType:(id:Geta_Extensions_00ci),branch:master/statusIcon)
 [![Platform](https://img.shields.io/badge/Platform-.NET%2010-blue.svg?style=flat)](https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-10/overview)
 [![Platform](https://img.shields.io/badge/Optimizely-%2013-orange.svg?style=flat)](http://world.episerver.com/cms/)
 
